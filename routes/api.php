@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\SpatieNameMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Other\LevelController;
@@ -21,37 +22,39 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::prefix('admin')->name('#~')->group(function () {
+Route::prefix('admin')
+    ->middleware(['auth:sanctum', SpatieNameMiddleware::admin()])
+    ->name('#~')->group(function () {
 
-    Route::apiResource('university', AdminUniversityController::class)
-        ->parameter('university', 'id')
-        ->except(['create', 'destroy']);
+        Route::apiResource('university', AdminUniversityController::class)
+            ->parameter('university', 'id')
+            ->except(['create', 'destroy', 'store']);
 
-    Route::apiResource('faculty', AdminFacultyController::class)
-        ->parameter('faculty', 'id')
-        ->except(['create', 'destroy']);
+        Route::apiResource('faculty', AdminFacultyController::class)
+            ->parameter('faculty', 'id')
+            ->except(['create', 'destroy', 'store']);
 
-    Route::apiResource('department', AdminDepartmentController::class)
-        ->parameter('department', 'id');
+        Route::apiResource('department', AdminDepartmentController::class)
+            ->parameter('department', 'id');
 
-    Route::apiResource('option', AdminOptionController::class)
-        ->parameter('option', 'id');
+        Route::apiResource('option', AdminOptionController::class)
+            ->parameter('option', 'id');
 
-    Route::apiResource('level', AdminLevelController::class)
-        ->parameter('level', 'id');
+        Route::apiResource('level', AdminLevelController::class)
+            ->parameter('level', 'id');
 
-    Route::apiResource('programme', AdminProgrammeController::class)
-        ->parameter('programme', 'id');
+        Route::apiResource('programme', AdminProgrammeController::class)
+            ->parameter('programme', 'id');
 
-    Route::get('/year-academic/{id}', [AdminYearAcademicController::class, 'show'])
-        ->name('year-academic.show');
+        Route::get('/year-academic/{id}', [AdminYearAcademicController::class, 'show'])
+            ->name('year-academic.show');
 
-    Route::get('/year-academic/{id}/update', [AdminYearAcademicController::class, 'update'])
-        ->name('year-academic.update');
+        Route::get('/year-academic/{id}/update', [AdminYearAcademicController::class, 'update'])
+            ->name('year-academic.update');
 
-    Route::get('/year-academic', [AdminYearAcademicController::class, 'index'])
-        ->name('year-academic.index');
-});
+        Route::get('/year-academic', [AdminYearAcademicController::class, 'index'])
+            ->name('year-academic.index');
+    });
 
 Route::name('^')->group(function () {
 
@@ -64,7 +67,6 @@ Route::name('^')->group(function () {
         ->name('faculty.show');
     Route::get('faculty', [FacultyController::class, 'index'])
         ->name('faculty.index');
-
 
     Route::get('department/{id}', [DepartmentController::class, 'show'])
         ->name('department.show');
@@ -91,3 +93,5 @@ Route::name('^')->group(function () {
     Route::get('/year-academic', [YearAcademicController::class, 'index'])
         ->name('year-academic.index');
 });
+
+require __DIR__ . '/auth.php';
