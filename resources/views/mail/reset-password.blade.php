@@ -1,20 +1,20 @@
 <x-mail::message>
-    # Hey !
+# Bonjour !
 
-    Vous recevez cet e-mail car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.
+Nous avons reçu une demande pour réinitialiser le mot de passe associé à votre compte.
 
-    <x-mail::button :url="''">
-        Réinitialisation du mot de passe
-    </x-mail::button>
+<x-mail::button :url="$url">
+Réinitialiser mon mot de passe
+</x-mail::button>
 
-    <p>
-        Ce lien de réinitialisation du mot de passe expirera dans 60 minutes.
-    </p>
+<p>
+Ce lien est valable pendant 60 minutes. Passé ce délai, vous devrez effectuer une nouvelle demande.
+</p>
 
-    <p>
-        Si vous n'avez pas demandé de réinitialisation de mot de passe, vous pouvez ignorer ce message.
-    </p>
+<p>
+Si vous n’êtes pas à l’origine de cette demande, vous pouvez simplement ignorer cet e-mail. Aucune action ne sera effectuée sur votre compte.
+</p>
 
-    Cordialement,<br>
-    {{ config('app.name') }}
+Merci de votre confiance,<br>
+{{ config('app.name') }}
 </x-mail::message>

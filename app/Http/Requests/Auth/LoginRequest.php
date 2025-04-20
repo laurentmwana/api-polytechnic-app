@@ -5,12 +5,11 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoginRequest extends FormRequest
+class LoginRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -82,19 +81,5 @@ class LoginRequest extends FormRequest
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
-    }
-
-
-    public function wantsJson(): bool
-    {
-        return true;
-    }
-
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'message' => 'La validation des données a échoué. Merci de corriger les champs concernés.',
-            'errors' => $validator->errors(),
-        ], 422));
     }
 }

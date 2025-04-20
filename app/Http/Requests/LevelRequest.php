@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LevelRequest extends FormRequest
+class LevelRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -35,18 +35,5 @@ class LevelRequest extends FormRequest
                 'exists:programmes,id'
             ],
         ];
-    }
-
-    public function wantsJson(): bool
-    {
-        return true;
-    }
-
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'message' => 'La validation des données a échoué. Merci de corriger les champs concernés.',
-            'errors' => $validator->errors(),
-        ], 422));
     }
 }

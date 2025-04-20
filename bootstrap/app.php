@@ -2,11 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\ForceJsonResponse;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -17,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->append(ForceJsonResponse::class);
         $middleware->alias([
             'abilities' => CheckAbilities::class,
             'ability' => CheckForAnyAbility::class,
@@ -26,10 +29,18 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
+
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             return response()->json([
                 'message' => $e->getMessage()
             ], 404);
+        });
+
+
+        $exceptions->render(function (ThrottleRequestsException $e, Request $request) {
+            return response()->json([
+                'message' => "Trop de requêtes. Veuillez réessayer plus tard."
+            ], 429);
         });
 
         $exceptions->render(function (\Illuminate\Auth\AuthenticationException $e, Request $request) {

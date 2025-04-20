@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Enum\SpatieUserRoleEnum;
 use App\Models\User;
-use Inertia\Inertia;
-use Inertia\Response;
-use App\Enums\UserRoleEnum;
 use Illuminate\Http\Request;
+use App\Enum\SpatieUserRoleEnum;
+use App\Helpers\SignedUrl;
 use Illuminate\Validation\Rules;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
+use App\Notifications\CustomEmailVerification;
+use App\Http\Resources\User\UserRegisterResource;
 
 class RegisteredUserController extends Controller
 {
@@ -23,7 +22,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function create(Request $request): RedirectResponse
+    public function __invoke(Request $request): UserRegisterResource
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -41,10 +40,10 @@ class RegisteredUserController extends Controller
             Role::findByName(SpatieUserRoleEnum::ROLE_ANONYMOUS->value)
         );
 
-        event(new Registered($user));
+        $user->notify(new CustomEmailVerification(
+            SignedUrl::getVerifyUrl($user),
+        ));
 
-        Auth::login($user);
-
-        return to_route('welcome');
+        return new UserRegisterResource($user);
     }
 }

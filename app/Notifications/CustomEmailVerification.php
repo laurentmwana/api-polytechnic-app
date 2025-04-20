@@ -3,21 +3,18 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class ResetPasswordNotification extends Notification
+class CustomEmailVerification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(private string $verificationUrl) {}
 
     /**
      * Get the notification's delivery channels.
@@ -34,7 +31,12 @@ class ResetPasswordNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)->markdown('mail/reset-password');
+        $emailVerificationUrl = sprintf("%s/email/verify?url=%s", config('app.frontend_url'), $this->verificationUrl);
+
+        return (new MailMessage)->markdown('mail/email-verification', [
+            'name' => $notifiable->name,
+            'url' => $emailVerificationUrl
+        ]);
     }
 
     /**
