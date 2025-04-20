@@ -2,29 +2,37 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class VerifyEmailController extends Controller
 {
-    /**
-     * Mark the authenticated user's email address as verified.
-     */
-    public function __invoke(EmailVerificationRequest $request): RedirectResponse
+    public function __invoke(int $userId, string $hash, Request $request): JsonResponse
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('welcome', absolute: false).'?verified=1');
+        $user = $request->user();
+
+        if (($userId !== $user->id) || sha1($user->email) !== $hash) {
+            abort(403, "Impossible de vérifier votre adresse e-mail. Veuillez vous reconnecter et réessayer.");
         }
 
-        if ($request->user()->markEmailAsVerified()) {
-            /** @var \Illuminate\Contracts\Auth\MustVerifyEmail $user */
-            $user = $request->user();
+        if ($user->hasVerifiedEmail()) {
+            return response()->json([
+                'status' => 'verified',
+                'message' => 'Votre adresse e-mail a déjà été vérifiée.',
+            ]);
+        }
 
+        if ($user->markEmailAsVerified()) {
             event(new Verified($user));
         }
 
-        return redirect()->intended(route('welcome', absolute: false).'?verified=1');
+        return response()->json([
+            'status' => 'verified',
+            'message' => 'Votre adresse e-mail a été vérifiée avec succès.',
+        ]);
     }
 }

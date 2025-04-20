@@ -2,23 +2,34 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use App\Helpers\SignedUrl;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\Controller;
+use App\Notifications\CustomEmailVerification;
 
 class EmailVerificationNotificationController extends Controller
 {
-    /**
-     * Send a new email verification notification.
-     */
-    public function store(Request $request): RedirectResponse
+
+    public function __invoke(Request $request): JsonResponse
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('welcome', absolute: false));
+        $user = $request->user();
+
+        if ($user->hasVerifiedEmail()) {
+            return response()->json([
+                'status' => 'verified',
+                'message' => 'Votre adresse e-mail est déjà vérifiée.',
+            ]);
         }
 
-        $request->user()->sendEmailVerificationNotification();
+        $user->notify(new CustomEmailVerification(SignedUrl::getVerifyUrl($user)));
 
-        return back()->with('status', 'verification-link-sent');
+        return response()->json([
+            'status' => 'sending',
+            'message' => 'Un nouveau lien de vérification a été envoyé à votre adresse e-mail.',
+        ]);
     }
+
 }
