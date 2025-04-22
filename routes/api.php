@@ -1,8 +1,9 @@
 <?php
 
-use App\Helpers\SpatieNameMiddleware;
 use Illuminate\Http\Request;
+use App\Helpers\SpatieNameMiddleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MeController;
 use App\Http\Controllers\Other\LevelController;
 use App\Http\Controllers\Other\OptionController;
 use App\Http\Controllers\Other\FacultyController;
@@ -18,9 +19,7 @@ use App\Http\Controllers\Admin\AdminDepartmentController;
 use App\Http\Controllers\Admin\AdminUniversityController;
 use App\Http\Controllers\Admin\AdminYearAcademicController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::get('/me', MeController::class)->middleware('auth:sanctum');
 
 Route::prefix('admin')
     ->middleware(['auth:sanctum', SpatieNameMiddleware::admin()])
