@@ -13,7 +13,7 @@ Route::middleware('guest')->group(function () {
     Route::post('register', RegisteredUserController::class);
 
     Route::post('login', [AuthenticatedSessionController::class, 'login'])
-        ->name('login');;
+        ->name('login');
 
     Route::post('forgot-password', PasswordResetLinkController::class)
         ->name('password.email');

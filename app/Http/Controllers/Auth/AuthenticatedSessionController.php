@@ -12,7 +12,6 @@ use Illuminate\Http\JsonResponse;
 
 class AuthenticatedSessionController extends Controller
 {
-
     public function login(LoginRequest $request): UserLoginResource|JsonResponse
     {
         $email = $request->email;
