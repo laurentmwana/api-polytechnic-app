@@ -12,7 +12,7 @@ use App\Models\Department;
 use App\Models\University;
 use App\Models\YearAcademic;
 use Illuminate\Database\Seeder;
-use App\Enum\SpatieUserRoleEnum;
+use App\Enums\SpatieUserRoleEnum;
 use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder

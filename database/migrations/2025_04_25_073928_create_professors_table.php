@@ -12,17 +12,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('professors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('firstname');
             $table->string('number_phone')->unique();
-            $table->string('registration_token')->unique();
-            $table->date('birth');
             $table->enum('gender', array_map(
                 fn(GenderEnum $enum) => $enum->value,
                 GenderEnum::cases(),
             ));
+            $table->foreignId('department_id')
+            ->constrained()
+            ->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('professors');
     }
 };

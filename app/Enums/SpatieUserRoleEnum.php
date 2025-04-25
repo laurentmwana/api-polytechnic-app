@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enum;
+namespace App\Enums;
 
 enum SpatieUserRoleEnum: string
 {
@@ -13,6 +13,6 @@ enum SpatieUserRoleEnum: string
     case ROLE_PROFESSOR = "ROLE_PROFESSOR";
 
     case ROLE_PERSONAL_ACADEMIC = "ROLE_PERSONAL_ACADEMIC";
-    
+
     case ROLE_ANONYMOUS = "ROLE_ANONYMOUS";
 }

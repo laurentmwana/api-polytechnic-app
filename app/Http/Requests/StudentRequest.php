@@ -2,10 +2,15 @@
 
 namespace App\Http\Requests;
 
-use App\Enum\GenderEnum;
+use App\Models\Student;
+use App\Enums\GenderEnum;
+use Illuminate\Support\Str;
+use App\Rules\NumberPhoneRule;
 use App\Rules\StudentInLevelRule;
 use App\Rules\YearAcademicClosedRule;
 use Illuminate\Validation\Rules\Enum;
+use App\Http\Requests\BaseFormRequest;
+use Illuminate\Validation\Rules\Unique;
 
 class StudentRequest extends BaseFormRequest
 {
@@ -25,6 +30,7 @@ class StudentRequest extends BaseFormRequest
     public function rules(): array
     {
         $yearId = $this->input('year_academic_id');
+
         $id = $this->input('id');
 
         return [
@@ -57,6 +63,11 @@ class StudentRequest extends BaseFormRequest
                 'date'
             ],
 
+            'number_phone' => [
+                'required',
+                (new Unique(Student::class))->ignore($id),
+                (new NumberPhoneRule()),
+            ],
 
             'year_academic_id' => [
                 'required',
@@ -70,6 +81,20 @@ class StudentRequest extends BaseFormRequest
                 (new StudentInLevelRule($yearId, $id))
             ],
 
+            'registration_token' => [
+                'required',
+                'string',
+                'min:10',
+                'max:10',
+                (new Unique(Student::class))->ignore($id),
+            ]
         ];
+    }
+
+    public function prepareForValidate()
+    {
+        $this->merge([
+            'registration_token' => Str::random(10),
+        ]);
     }
 }

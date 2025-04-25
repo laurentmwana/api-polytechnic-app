@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Enum\SpatieUserRoleEnum;
+use App\Enums\SpatieUserRoleEnum;
 
 abstract  class SpatieNameMiddleware
 {

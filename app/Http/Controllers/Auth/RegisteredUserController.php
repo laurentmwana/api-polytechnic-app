@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Enum\SpatieUserRoleEnum;
+use App\Enums\SpatieUserRoleEnum;
 use App\Helpers\SignedUrl;
 use Illuminate\Validation\Rules;
 use Spatie\Permission\Models\Role;

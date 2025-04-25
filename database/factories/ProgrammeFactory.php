@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enum\ProgrammeGroupEnum;
+use App\Enums\ProgrammeGroupEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

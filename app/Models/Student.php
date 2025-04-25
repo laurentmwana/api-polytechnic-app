@@ -17,6 +17,8 @@ class Student extends Model
         'firstname',
         'lastname',
         'gender',
+        'number_phone',
+        'registration_token',
         'birth',
     ];
 
