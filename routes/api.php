@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\AdminFacultyController;
 use App\Http\Controllers\Other\YearAcademicController;
 use App\Http\Controllers\Admin\AdminProgrammeController;
 use App\Http\Controllers\Admin\AdminDepartmentController;
+use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminUniversityController;
 use App\Http\Controllers\Admin\AdminYearAcademicController;
 
@@ -53,6 +54,9 @@ Route::prefix('admin')
 
         Route::get('/year-academic', [AdminYearAcademicController::class, 'index'])
             ->name('year-academic.index');
+
+        Route::apiResource('student', AdminStudentController::class)
+            ->parameter('student', 'id');
     });
 
 Route::name('^')->group(function () {

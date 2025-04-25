@@ -31,14 +31,7 @@ class CustomResetPassword extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $url = sprintf(
-            "%s/reset-password/%s?email=%s",
-            config('app.frontend_url'),
-            $this->token,
-            $notifiable->getEmailForPasswordReset(),
-        );
-
-
+        $url = env('FRONTEND_APP_URL')  . "/reset-password/{$this->token}?email=" . $notifiable->getEmailForPasswordReset();
 
         return (new MailMessage)->markdown('mail/reset-password', [
             'url' => $url,
