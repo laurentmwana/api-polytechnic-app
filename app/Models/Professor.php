@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Professor extends Model
 {
@@ -20,12 +21,10 @@ class Professor extends Model
         'birth',
     ];
 
-
-
-    // public function courses(): HasMany
-    // {
-    //     return $this->hasMany(HistoricLevel::class);
-    // }
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
+    }
 
     public function department(): BelongsTo
     {
