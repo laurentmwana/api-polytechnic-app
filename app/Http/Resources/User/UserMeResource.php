@@ -18,7 +18,6 @@ class UserMeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'token' => $this->tokens,
             'roles' => $this->roles,
             'permissions' => $this->permissions,
         ];

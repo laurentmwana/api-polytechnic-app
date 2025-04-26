@@ -20,10 +20,10 @@ use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminUniversityController;
 use App\Http\Controllers\Admin\AdminYearAcademicController;
 
-Route::get('/me', MeController::class)->middleware('auth:sanctum');
+Route::get('/me', MeController::class)->middleware('auth');
 
 Route::prefix('admin')
-    ->middleware(['auth:sanctum', SpatieNameMiddleware::admin()])
+    ->middleware(['auth', SpatieNameMiddleware::admin()])
     ->name('#~')->group(function () {
 
         Route::apiResource('university', AdminUniversityController::class)

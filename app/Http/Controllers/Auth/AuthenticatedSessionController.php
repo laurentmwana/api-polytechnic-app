@@ -5,26 +5,17 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Resources\User\UserLoginResource;
-use Illuminate\Http\JsonResponse;
 
 class AuthenticatedSessionController extends Controller
 {
-    public function login(Request $request): UserLoginResource|JsonResponse
+    public function login(LoginRequest $request)
     {
-        $email = $request->email;
-
-        $user = User::where('email', '=', $email)->first();
-
-        if (!$user instanceof User || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => "Identifiants invalides",
-            ], 401);
+        if (! $token = auth()->attempt($request->validated())) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return new UserLoginResource($user);
+        return $this->respondWithToken($token);
     }
 
     public function destroy(Request $request): array
@@ -34,5 +25,14 @@ class AuthenticatedSessionController extends Controller
         return ['data' => [
             'message' => "Vous êtes déconnecté (:",
         ]];
+    }
+
+    private function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
     }
 }
