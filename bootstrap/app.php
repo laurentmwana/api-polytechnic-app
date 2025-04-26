@@ -5,8 +5,6 @@ use Illuminate\Foundation\Application;
 use App\Http\Middleware\ForceJsonResponse;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Laravel\Sanctum\Http\Middleware\CheckAbilities;
-use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -21,8 +19,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(ForceJsonResponse::class);
         $middleware->alias([
-            'abilities' => CheckAbilities::class,
-            'ability' => CheckForAnyAbility::class,
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        if (! $token = auth()->attempt($request->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (! $token = Auth::attempt($request->validated())) {
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -20,7 +20,7 @@ class AuthenticatedSessionController extends Controller
 
     public function destroy(Request $request): array
     {
-        $request->user()->currentAccessToken()->delete();
+        Auth::logout();
 
         return ['data' => [
             'message' => "Vous êtes déconnecté (:",
@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => Auth::factory()->getTTL() * 0
         ]);
     }
 }

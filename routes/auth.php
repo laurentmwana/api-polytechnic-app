@@ -22,7 +22,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.store');
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth')->group(function () {
 
     Route::post('email/verification-notification', EmailVerificationNotificationController::class)
         ->middleware('throttle:50,1')
