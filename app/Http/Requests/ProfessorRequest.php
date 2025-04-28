@@ -36,19 +36,13 @@ class ProfessorRequest extends BaseFormRequest
                 'between:2,255',
             ],
 
-            'lastname' => [
-                'required',
-                'string',
-                'between:2,255',
-            ],
-
             'gender' => [
                 'required',
                 'string',
-                (new Enum(GenderEnum::cases()))
+                (new Enum(GenderEnum::class))
             ],
 
-            'phone' => [
+            'number_phone' => [
                 'required',
                 (new NumberPhoneRule())
             ],

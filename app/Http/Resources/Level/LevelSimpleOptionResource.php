@@ -4,10 +4,10 @@ namespace App\Http\Resources\Level;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Option\OptionUpdateResource;
-use App\Http\Resources\Programme\ProgrammeUpdateResource;
+use App\Http\Resources\Option\OptionSimpleResource;
+use App\Http\Resources\Programme\ProgrammeSimpleResource;
 
-class LevelUpdateResource extends JsonResource
+class LevelSimpleOptionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,8 +18,7 @@ class LevelUpdateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'option' =>  new OptionUpdateResource($this->option),
-            'programme' =>  new ProgrammeUpdateResource($this->programme),
+            'programme' => new ProgrammeSimpleResource($this->programme),
         ];
     }
 }

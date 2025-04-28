@@ -46,16 +46,10 @@ class StudentRequest extends BaseFormRequest
                 'between:2,255',
             ],
 
-            'lastname' => [
-                'required',
-                'string',
-                'between:2,255',
-            ],
-
             'gender' => [
                 'required',
                 'string',
-                (new Enum(GenderEnum::cases()))
+                (new Enum(GenderEnum::class))
             ],
 
             'birth' => [
@@ -80,21 +74,6 @@ class StudentRequest extends BaseFormRequest
                 'exists:levels,id',
                 (new StudentInLevelRule($yearId, $id))
             ],
-
-            'registration_token' => [
-                'required',
-                'string',
-                'min:10',
-                'max:10',
-                (new Unique(Student::class))->ignore($id),
-            ]
         ];
-    }
-
-    public function prepareForValidate()
-    {
-        $this->merge([
-            'registration_token' => Str::random(10),
-        ]);
     }
 }

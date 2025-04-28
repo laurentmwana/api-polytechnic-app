@@ -15,7 +15,7 @@ class NumberPhoneRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $prefix = substr($value, 0, 2);
+        $prefix = substr($value, 0, 3);
 
         $networks  = array_map(
             function (NumberPhoneEnum $enum) use ($prefix): bool {
@@ -24,8 +24,8 @@ class NumberPhoneRule implements ValidationRule
             NumberPhoneEnum::cases(),
         );
 
-        if (!in_array(true, $networks)) {
-            $fail("Saisissez un numéro de téléphone valide (:");
+        if (in_array(true, $networks)) {
+            $fail("{$attribute} n'est pas valide");
         }
     }
 }

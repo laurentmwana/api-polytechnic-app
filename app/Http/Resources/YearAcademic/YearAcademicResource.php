@@ -21,6 +21,6 @@ class YearAcademicResource extends JsonResource
             'alias' => $this->alias,
             'levels' => new LevelResource($this->levels),
             'created_at' => $this->created_at
-        ];;
+        ];
     }
 }

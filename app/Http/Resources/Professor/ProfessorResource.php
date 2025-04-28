@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources\Professor;
 
+use App\Http\Resources\Course\CourseSimpleLevelResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Department\DepartmentSimpleResource;
 
 class ProfessorResource extends JsonResource
 {
@@ -17,8 +19,13 @@ class ProfessorResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'faculty' => $this->faculty,
-            'created_at' => $this->created_at
-        ];;
+            'firstname' => $this->firstname,
+            'gender' => $this->gender,
+            'number_phone' => $this->number_phone,
+            'department' =>  new DepartmentSimpleResource($this->department),
+            'courses' => CourseSimpleLevelResource::collection($this->courses),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

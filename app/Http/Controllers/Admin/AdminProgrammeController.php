@@ -3,44 +3,41 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Programme;
-use App\Models\Department;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProgrammeRequest;
 use App\Http\Resources\Programme\ProgrammeResource;
 use App\Http\Resources\Programme\ProgrammesResource;
-use App\Http\Resources\Programme\ProgrammeUpdateResource;
+use App\Http\Resources\Programme\ProgrammeSimpleResource;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AdminProgrammeController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        $programmes = Programme::with(['levels'])
-            ->orderByDesc('updated_at')
-            ->paginate();
+        $programmes = Programme::query()->findSearchOrThrow($request);
 
         return ProgrammesResource::collection($programmes);
     }
 
-    public function store(ProgrammeRequest $request): ProgrammeUpdateResource
+    public function store(ProgrammeRequest $request): ProgrammeSimpleResource
     {
         $programme = DB::transaction(function () use ($request) {
             return Programme::create($request->validated());
         });
 
-        return new ProgrammeUpdateResource($programme);
+        return new ProgrammeSimpleResource($programme);
     }
 
     public function show(int $id): ProgrammeResource
     {
-        $programme = Programme::with(['levels'])
-            ->findOrFail($id);
+        $programme = Programme::query()->findByIdOrThrow($id);
 
         return new ProgrammeResource($programme);
     }
 
-    public function update(ProgrammeRequest $request, int $id): ProgrammeUpdateResource
+    public function update(ProgrammeRequest $request, int $id): ProgrammeSimpleResource
     {
         $programme = Programme::findOrFail($id, ['name', 'id', 'alias']);
 
@@ -48,7 +45,7 @@ class AdminProgrammeController extends Controller
             $programme->update($request->validated());
         });
 
-        return new ProgrammeUpdateResource($programme);
+        return new ProgrammeSimpleResource($programme);
     }
 
 

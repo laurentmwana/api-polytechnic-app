@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Programme;
+namespace App\Http\Resources\Course;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Level\LevelSimpleResource;
 
-class ProgrammeUpdateResource extends JsonResource
+class CourseSimpleLevelResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +18,8 @@ class ProgrammeUpdateResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'alias' => $this->alias,
+            'credits' => $this->credits,
+            'level' => new LevelSimpleResource($this->level),
         ];
     }
 }

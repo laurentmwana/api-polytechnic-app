@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
@@ -18,7 +17,7 @@ class AuthenticatedSessionController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function destroy(Request $request): array
+    public function destroy(): array
     {
         Auth::logout();
 
@@ -32,7 +31,7 @@ class AuthenticatedSessionController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => Auth::factory()->getTTL() * 0
+            'expires_in' => Auth::factory()->getTTL() * 90000
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Eloquent\CourseEloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,11 @@ class Course extends Model
         'semester',
         'professor_id',
     ];
+
+    public function newEloquentBuilder($query): CourseEloquent
+    {
+        return new CourseEloquent($query);
+    }
 
 
     public function professor(): BelongsTo

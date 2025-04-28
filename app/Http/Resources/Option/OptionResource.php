@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources\Option;
 
-use App\Http\Resources\Level\LevelResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Level\LevelSimpleOptionResource;
+use App\Http\Resources\Department\DepartmentSimpleResource;
 
 class OptionResource extends JsonResource
 {
@@ -19,10 +20,10 @@ class OptionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'alias' => $this->alias,
-            'levels' => new LevelResource($this->levels),
-            'description' => $this->description,
-            'department' => $this->department,
-            'created_at' => $this->created_at
-        ];;
+            'levels' => LevelSimpleOptionResource::collection($this->levels),
+            'department' => new DepartmentSimpleResource($this->department),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

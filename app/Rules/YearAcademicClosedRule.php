@@ -15,12 +15,12 @@ class YearAcademicClosedRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $year = YearAcademic::where('closed', '=', true)
+        $year = YearAcademic::where('is_closed', '=', true)
             ->where('id', '=', $value)
             ->first();
 
         if ($year instanceof YearAcademic) {
-            $fail("Vous ne pouvez pas être dans une année académique qui est cloturé");
+            $fail("{$attribute} cette anneé cloturée");
         }
     }
 }

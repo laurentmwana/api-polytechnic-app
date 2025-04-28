@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 
 class CourseInLevelRule implements ValidationRule
 {
-    public function __construct(private string $levelId, private string $id) {}
+    public function __construct(private ?string $levelId, private ?string $id) {}
 
     /**
      * Run the validation rule.
@@ -17,13 +17,15 @@ class CourseInLevelRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $course = Course::where('id', '!=', $this->id)
-            ->where('name', '=', $value)
-            ->where('level_id', '=', $this->levelId)
-            ->first();
+        if (null !== $this->levelId) {
+            $course = Course::where('id', '!=', $this->id)
+                ->where('name', '=', $value)
+                ->where('level_id', '=', $this->levelId)
+                ->first();
 
-        if ($course instanceof Course) {
-            $fail("Il ne peut pas y avoir deux course portant le même nom dans une promotion");
+            if ($course instanceof Course) {
+                $fail("Il ne peut pas y avoir deux course portant le même nom dans une promotion");
+            }
         }
     }
 }

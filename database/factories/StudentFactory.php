@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\GenderEnum;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,12 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name,
+            'firstname' => fake()->firstname,
+            'gender' => fake()->randomElement(GenderEnum::cases())->value,
+            'registration_token' => Str::random(10),
+            'number_phone' => fake()->phoneNumber(),
+            'birth' => fake()->date(),
         ];
     }
 }

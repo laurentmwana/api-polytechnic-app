@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Professor;
+namespace App\Http\Resources\Option;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProfessorUpdatResource extends JsonResource
+class OptionSimpleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

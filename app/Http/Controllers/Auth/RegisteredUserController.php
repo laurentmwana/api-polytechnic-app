@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use App\Notifications\CustomEmailVerification;
 use App\Http\Resources\User\UserRegisterResource;
+use App\Notifications\WelcomeUserNotification;
 
 class RegisteredUserController extends Controller
 {
@@ -40,9 +41,7 @@ class RegisteredUserController extends Controller
             Role::findByName(SpatieUserRoleEnum::ROLE_ANONYMOUS->value)
         );
 
-        $user->notify(new CustomEmailVerification(
-            SignedUrl::getVerifyUrl($user),
-        ));
+        $user->notify(new WelcomeUserNotification());
 
         return new UserRegisterResource($user);
     }

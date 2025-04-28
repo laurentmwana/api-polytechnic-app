@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Level;
+use App\Models\Professor;
+use App\Enums\SemesterEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,11 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'credits' => fake()->randomDigit(),
+            'semester' => fake()->randomElement(SemesterEnum::cases())->value,
+            'professor_id' => Professor::all()->random()->id,
+            'level_id' => Level::all()->random()->id,
         ];
     }
 }

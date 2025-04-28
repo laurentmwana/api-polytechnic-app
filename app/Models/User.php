@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Eloquent\UserEloquent;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -36,6 +37,11 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         'remember_token',
     ];
 
+
+    public function newEloquentBuilder($query): UserEloquent
+    {
+        return new UserEloquent($query);
+    }
 
     public function sendPasswordResetNotification($token)
     {

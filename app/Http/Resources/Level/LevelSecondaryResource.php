@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Course;
+namespace App\Http\Resources\Level;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Level\LevelSimpleResource;
+use App\Http\Resources\Student\StudentSimpleResource;
+use App\Http\Resources\YearAcademic\YearAcademicSimpleResource;
 
-class CoursesResource extends JsonResource
+class LevelSecondaryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +19,9 @@ class CoursesResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'credits' => $this->credits,
-            'semester' => $this->semester,
             'level' => new LevelSimpleResource($this->level),
-            'created_at' => $this->created_at
+            'year_academic' => new YearAcademicSimpleResource($this->yearAcademic),
+            'student' => new StudentSimpleResource($this->student),
         ];
     }
 }

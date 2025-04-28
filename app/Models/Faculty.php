@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Eloquent\FacultyEloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +14,10 @@ class Faculty extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'university_id', 'description'];
+    public function newEloquentBuilder($query): FacultyEloquent
+    {
+        return new FacultyEloquent($query);
+    }
 
     public function university(): BelongsTo
     {

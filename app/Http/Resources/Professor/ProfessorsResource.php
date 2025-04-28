@@ -4,7 +4,8 @@ namespace App\Http\Resources\Professor;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Faculty\FacultyUpdateResource;
+use App\Http\Resources\Faculty\FacultySimpleResource;
+use App\Http\Resources\Department\DepartmentSimpleResource;
 
 class ProfessorsResource extends JsonResource
 {
@@ -18,7 +19,10 @@ class ProfessorsResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'faculty' =>  new FacultyUpdateResource($this->faculty),
+            'firstname' => $this->firstname,
+            'gender' => $this->gender,
+            'department' =>  new DepartmentSimpleResource($this->department),
+            'courses' => $this->courses->count('id'),
             'created_at' => $this->created_at
         ];
     }

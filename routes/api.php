@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use App\Helpers\SpatieNameMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MeController;
@@ -11,12 +10,14 @@ use App\Http\Controllers\Other\ProgrammeController;
 use App\Http\Controllers\Admin\AdminLevelController;
 use App\Http\Controllers\Other\DepartmentController;
 use App\Http\Controllers\Other\UniversityController;
+use App\Http\Controllers\Admin\AdminCourseController;
 use App\Http\Controllers\Admin\AdminOptionController;
 use App\Http\Controllers\Admin\AdminFacultyController;
+use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Other\YearAcademicController;
+use App\Http\Controllers\Admin\AdminProfessorController;
 use App\Http\Controllers\Admin\AdminProgrammeController;
 use App\Http\Controllers\Admin\AdminDepartmentController;
-use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminUniversityController;
 use App\Http\Controllers\Admin\AdminYearAcademicController;
 
@@ -57,6 +58,12 @@ Route::prefix('admin')
 
         Route::apiResource('student', AdminStudentController::class)
             ->parameter('student', 'id');
+
+        Route::apiResource('professor', AdminProfessorController::class)
+        ->parameter('professor', 'id');
+
+        Route::apiResource('course', AdminCourseController::class)
+        ->parameter('course', 'id');
     });
 
 Route::name('^')->group(function () {

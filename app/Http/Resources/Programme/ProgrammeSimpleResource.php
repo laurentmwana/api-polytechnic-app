@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Option;
+namespace App\Http\Resources\Programme;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Department\DepartmentUpdateResource;
 
-class OptionUpdateResource extends JsonResource
+class ProgrammeSimpleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +18,7 @@ class OptionUpdateResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'alias' => $this->alias,
-            'department' =>  new DepartmentUpdateResource($this->department),
+            'programme_group' => $this->programme_group,
         ];
     }
 }

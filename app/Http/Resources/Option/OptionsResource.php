@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources\Option;
 
-use App\Http\Resources\Department\DepartmentUpdateResource;
+use App\Http\Resources\Department\DepartmentSimpleResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Faculty\FacultyUpdateResource;
 
 class OptionsResource extends JsonResource
 {
@@ -21,7 +20,7 @@ class OptionsResource extends JsonResource
             'name' => $this->name,
             'alias' => $this->alias,
             'levels' => $this->levels->count('id'),
-            'department' =>  new DepartmentUpdateResource($this->department),
+            'department' =>  new DepartmentSimpleResource($this->department),
             'created_at' => $this->created_at
         ];
     }

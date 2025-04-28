@@ -4,10 +4,9 @@ namespace App\Http\Resources\Student;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Faculty\FacultySimpleResource;
 use App\Http\Resources\Level\LevelSecondarySimpleResource;
 
-class StudentsResource extends JsonResource
+class StudentSimpleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,9 +19,9 @@ class StudentsResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'firstname' => $this->firstname,
+            'registration_token' => $this->registration_token,
             'gender' => $this->gender,
-            'actual_level' => new LevelSecondarySimpleResource($this->actualLevel),
-            'created_at' => $this->created_at
+            'actual_level' => (new LevelSecondarySimpleResource($this->actualLevel)),
         ];
     }
 }

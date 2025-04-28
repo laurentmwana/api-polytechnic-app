@@ -2,44 +2,42 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Professor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfessorRequest;
 use App\Http\Resources\Professor\ProfessorResource;
 use App\Http\Resources\Professor\ProfessorsResource;
-use App\Http\Resources\Professor\ProfessorUpdatResource;
-use App\Models\Professor;
+use App\Http\Resources\Professor\ProfessorSimpleResource;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AdminProfessorController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        $professors = Professor::with(['courses', 'department'])
-            ->orderByDesc('updated_at')
-            ->paginate();
+        $professors = Professor::query()->findSearchAndPaginated($request);
 
         return ProfessorsResource::collection($professors);
     }
 
     public function show(int $id): ProfessorResource
     {
-        $professor = Professor::with(['courses', 'department'])
-            ->findOrFail($id);
+        $professor = Professor::query()->findByIdOrThrow($id);
 
         return new ProfessorResource($professor);
     }
 
-    public function create(ProfessorRequest $request): ProfessorUpdatResource
+    public function store(ProfessorRequest $request): ProfessorSimpleResource
     {
         $professor = DB::transaction(function () use ($request) {
             return Professor::create($request->validated());
         });
 
-        return new ProfessorUpdatResource($professor);
+        return new ProfessorSimpleResource($professor);
     }
 
-    public function update(ProfessorRequest $request, int $id): ProfessorUpdatResource
+    public function update(ProfessorRequest $request, int $id): ProfessorSimpleResource
     {
         $professor = Professor::findOrFail($id);
 
@@ -47,7 +45,7 @@ class AdminProfessorController extends Controller
             $professor->update($request->validated());
         });
 
-        return new ProfessorUpdatResource($professor);
+        return new ProfessorSimpleResource($professor);
     }
 
     public function destroy(int $id): bool|null

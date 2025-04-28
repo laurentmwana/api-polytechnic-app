@@ -3,38 +3,40 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Student;
+use App\Models\ActualLevel;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
 use App\Http\Resources\Student\StudentResource;
 use App\Http\Resources\Student\StudentsResource;
-use App\Http\Resources\Student\StudentUpdateResource;
-use App\Models\ActualLevel;
+use App\Http\Resources\Student\StudentSimpleResource;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AdminStudentController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        $students = Student::with(['actualLevel', 'actualLevel.level', 'actualLevel.yearAcademic'])
-            ->orderByDesc('updated_at')
-            ->paginate();
+        $students = Student::query()->findSearchAndPaginated($request);
 
         return StudentsResource::collection($students);
     }
 
     public function show(int $id): StudentResource
     {
-        $student = Student::with(['actualLevel', 'actualLevel.level', 'actualLevel.yearAcademic'])
-            ->findOrFail($id);
+        $student = Student::query()->findByIdOrThrow($id);
 
         return new StudentResource($student);
     }
 
-    public function create(StudentRequest $request): StudentUpdateResource
+    public function store(StudentRequest $request): StudentSimpleResource
     {
         $student = DB::transaction(function () use ($request) {
-            $student  = Student::create($request->validated());
+            $student  = Student::create([
+                ...$request->validated(),
+                'registration_token' => Str::random(10),
+            ]);
 
             ActualLevel::create([
                 'student_id' => $student->id,
@@ -45,10 +47,10 @@ class AdminStudentController extends Controller
             return $student;
         });
 
-        return new StudentUpdateResource($student);
+        return new StudentSimpleResource($student);
     }
 
-    public function update(StudentRequest $request, int $id): StudentUpdateResource
+    public function update(StudentRequest $request, int $id): StudentSimpleResource
     {
         $student = Student::with(['actualLevel'])->findOrFail($id);
 
@@ -61,7 +63,7 @@ class AdminStudentController extends Controller
             ]);
         });
 
-        return new StudentUpdateResource($student);
+        return new StudentSimpleResource($student);
     }
 
     public function destroy(int $id): bool|null

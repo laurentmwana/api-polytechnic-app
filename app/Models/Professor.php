@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Eloquent\ProfessorEloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,12 +16,15 @@ class Professor extends Model
     protected $fillable = [
         'name',
         'firstname',
-        'lastname',
         'gender',
-        'phone',
-        'birth',
+        'number_phone',
+        'department_id',
     ];
 
+    public function newEloquentBuilder($query): ProfessorEloquent
+    {
+        return new ProfessorEloquent($query);
+    }
     public function courses(): HasMany
     {
         return $this->hasMany(Course::class);

@@ -4,6 +4,8 @@ namespace App\Http\Resources\Level;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Option\OptionSimpleResource;
+use App\Http\Resources\Programme\ProgrammeSimpleResource;
 
 class LevelResource extends JsonResource
 {
@@ -16,9 +18,10 @@ class LevelResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'option' => $this->option,
-            'programme' => $this->programme,
-            'created_at' => $this->created_at
-        ];;
+            'programme' => new ProgrammeSimpleResource($this->programme),
+            'option' =>  new OptionSimpleResource($this->option),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Eloquent;
 
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
-class PaidAcademicEloquent extends Builder
-{
-}
+class PaidAcademicEloquent extends Builder {}

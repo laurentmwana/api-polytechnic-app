@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Eloquent\OptionEloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,11 @@ class Option extends Model
     /** @use HasFactory<\Database\Factories\OptionFactory> */
     use HasFactory;
     protected $fillable = ['name', 'alias', 'descriptions', 'department_id'];
+
+    public function newEloquentBuilder($query): OptionEloquent
+    {
+        return new OptionEloquent($query);
+    }
 
     public function department(): BelongsTo
     {

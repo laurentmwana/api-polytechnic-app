@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Option\OptionSimpleResource;
 use App\Http\Resources\Programme\ProgrammeSimpleResource;
 
-class LevelsResource extends JsonResource
+class LevelSimpleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +18,8 @@ class LevelsResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'programme' => new ProgrammeSimpleResource($this->programme),
             'option' =>  new OptionSimpleResource($this->option),
-            'programme' =>  new ProgrammeSimpleResource($this->programme),
-            'created_at' => $this->created_at
         ];
     }
 }

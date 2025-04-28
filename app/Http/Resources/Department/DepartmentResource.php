@@ -4,6 +4,8 @@ namespace App\Http\Resources\Department;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Option\OptionSimpleResource;
+use App\Http\Resources\Faculty\FacultySimpleResource;
 
 class DepartmentResource extends JsonResource
 {
@@ -17,8 +19,10 @@ class DepartmentResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'faculty' => $this->faculty,
-            'created_at' => $this->created_at
-        ];;
+            'faculty' => new FacultySimpleResource($this->faculty),
+            'options' => OptionSimpleResource::collection($this->options),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }
