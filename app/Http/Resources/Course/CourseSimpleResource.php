@@ -17,7 +17,7 @@ class CourseSimpleResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'credi' => $this->credi,
+            'credits' => $this->credits,
         ];
     }
 }

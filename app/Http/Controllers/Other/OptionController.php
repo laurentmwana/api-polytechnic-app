@@ -13,8 +13,12 @@ class OptionController extends Controller
 {
     public function index(Request $request): AnonymousResourceCollection
     {
-        $options = Option::query()->findSearchAndPaginated($request);
+        $limit = $request->query->get('limit');
 
+        $options = null !== $limit && !empty($limit) && is_integer($limit)
+            ? Option::query()->findLimit($limit)
+            : Option::query()->findSearchAndPaginated($request);
+            
         return OptionsResource::collection($options);
     }
 

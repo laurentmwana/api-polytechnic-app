@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
+use App\Models\Student;
+use App\Models\YearAcademic;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,9 @@ class CourseFollowedFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'course_id' => Course::all()->random()->id,
+            'year_academic_id' => YearAcademic::all()->random()->id,
+            'student_id' => Student::all()->random()->id,
         ];
     }
 }

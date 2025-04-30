@@ -14,7 +14,10 @@ use App\Models\Programme;
 use App\Models\Department;
 use App\Models\University;
 use App\Models\ActualLevel;
+use App\Models\AcademicFees;
 use App\Models\YearAcademic;
+use App\Models\CourseFollowed;
+use App\Models\LaboratoryFees;
 use Illuminate\Database\Seeder;
 use App\Enums\SpatieUserRoleEnum;
 use Spatie\Permission\Models\Role;
@@ -55,7 +58,11 @@ class DatabaseSeeder extends Seeder
 
         Level::factory(10)->create();
 
-        $students = Student::factory(300)->create();
+        $students = Student::factory(20)->create();
+
+        Professor::factory(30)->create();
+
+        Course::factory(50)->create();
 
         foreach ($students as $student) {
 
@@ -71,10 +78,20 @@ class DatabaseSeeder extends Seeder
                     'level_id' => Level::all()->random()->id,
                 ]);
             }
+
+            CourseFollowed::factory(6)->create([
+                'student_id' => $student->id,
+            ]);
         }
 
-        Professor::factory(30)->create();
+        foreach (Level::all() as $level) {
+            LaboratoryFees::factory()->create([
+                'level_id' => $level->id,
+            ]);
 
-        Course::factory(50)->create();
+            AcademicFees::factory()->create([
+                'level_id' => $level->id,
+            ]);
+        }
     }
 }

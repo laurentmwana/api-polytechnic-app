@@ -22,6 +22,13 @@ class DepartmentEloquent extends Builder
             self::SEARCH_COLUMNS
         )->paginate();
     }
+    public function findLimit(int $limit)
+    {
+        return $this->getQueryRelation()
+            ->orderByDesc('updated_at')
+            ->limit($limit)
+            ->get();
+    }
 
     public function findByIdOrThrow(string $id)
     {

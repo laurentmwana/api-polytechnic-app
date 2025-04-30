@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\User;
 
-use App\Http\Resources\Level\UtilResource;
+use App\Http\Resources\UtilResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,6 +19,7 @@ class UserMeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'isEmailVerified' => $this->email_verified !== null,
             'roles' => UtilResource::collection($this->roles),
             'permissions' => UtilResource::collection($this->permissions),
         ];

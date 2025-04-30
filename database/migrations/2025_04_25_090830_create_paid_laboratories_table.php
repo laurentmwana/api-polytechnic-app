@@ -22,7 +22,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->date('paid_at');
+            $table->date('paid_at')->nullable();
             $table->timestamps();
         });
     }

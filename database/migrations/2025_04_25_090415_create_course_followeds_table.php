@@ -16,13 +16,15 @@ return new class extends Migration
             $table->foreignId('student_id')
                 ->constrained()
                 ->cascadeOnDelete();
+
             $table->foreignId('year_academic_id')
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->foreignId('level_id')
+            $table->foreignId('course_id')
                 ->constrained()
                 ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

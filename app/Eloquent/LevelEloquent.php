@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class LevelEloquent extends Builder
 {
-
     private const SEARCH_COLUMNS = ['programme_id', 'option_id'];
 
     public function findByIdOrThrow(string $id)
@@ -19,6 +18,13 @@ class LevelEloquent extends Builder
     public function findById(string $id)
     {
         return $this->getQueryRelation()->find($id);
+    }
+
+    public function findLimit(int $limit)
+    {
+        return $this->getQueryRelation()->limit($limit)
+            ->orderByDesc('updated_at')
+            ->get();
     }
 
     public function findSearchAndPaginated(Request $request)
