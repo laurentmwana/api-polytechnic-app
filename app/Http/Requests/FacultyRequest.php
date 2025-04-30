@@ -2,8 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Helpers\MarkdownTransform;
 
 class FacultyRequest extends BaseFormRequest
 {
@@ -40,5 +39,16 @@ class FacultyRequest extends BaseFormRequest
                 'between:10,5000',
             ]
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        $description = $this->input('description');
+
+        if ($description !== null && !empty($description)) {
+            $this->merge([
+                'description' => MarkdownTransform::transform($description)
+            ]);
+        }
     }
 }

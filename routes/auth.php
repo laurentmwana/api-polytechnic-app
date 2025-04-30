@@ -13,7 +13,7 @@ Route::middleware('guest')->group(function () {
     Route::post('register', RegisteredUserController::class);
 
     Route::post('login', [AuthenticatedSessionController::class, 'login'])
-        ->name('login');;
+        ->name('login');
 
     Route::post('forgot-password', PasswordResetLinkController::class)
         ->name('password.email');
@@ -22,7 +22,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.store');
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth')->group(function () {
 
     Route::post('email/verification-notification', EmailVerificationNotificationController::class)
         ->middleware('throttle:50,1')

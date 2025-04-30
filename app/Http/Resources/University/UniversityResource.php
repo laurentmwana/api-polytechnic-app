@@ -19,6 +19,6 @@ class UniversityResource extends JsonResource
             'name' => $this->name,
             'facultiess' => $this->faculties,
             'created_at' => $this->created_at
-        ];;
+        ];
     }
 }

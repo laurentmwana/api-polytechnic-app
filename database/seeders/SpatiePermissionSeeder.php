@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Enum\SpatieUserRoleEnum;
+use App\Enums\SpatieUserRoleEnum;
 use Spatie\Permission\Models\Role;
-use App\Enum\SpatieUserPermissionEnum;
+use App\Enums\SpatieUserPermissionEnum;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 

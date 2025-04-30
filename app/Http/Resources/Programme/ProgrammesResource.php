@@ -4,7 +4,7 @@ namespace App\Http\Resources\Programme;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Faculty\FacultyUpdateResource;
+use App\Http\Resources\Faculty\FacultySimpleResource;
 
 class ProgrammesResource extends JsonResource
 {
@@ -18,8 +18,10 @@ class ProgrammesResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'faculty' =>  new FacultyUpdateResource($this->faculty),
-            'created_at' => $this->created_at
+            'alias' => $this->alias,
+            'programme_group' => $this->programme_group,
+            'levels' => $this->levels->count('id'),
+            'created_at' => $this->created_at,
         ];
     }
 }

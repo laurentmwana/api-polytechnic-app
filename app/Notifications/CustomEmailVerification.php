@@ -31,7 +31,7 @@ class CustomEmailVerification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $emailVerificationUrl = sprintf("%s/email/verify?url=%s", config('app.frontend_url'), $this->verificationUrl);
+        $emailVerificationUrl = sprintf("/%s/email/verify?url=%s", config('app.frontend_url'), $this->verificationUrl);
 
         return (new MailMessage)->markdown('mail/email-verification', [
             'name' => $notifiable->name,

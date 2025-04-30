@@ -5,6 +5,7 @@ namespace App\Http\Resources\Programme;
 use Illuminate\Http\Request;
 use App\Http\Resources\Level\LevelResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Level\LevelSimpleResource;
 
 class ProgrammeResource extends JsonResource
 {
@@ -19,8 +20,10 @@ class ProgrammeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'alias' => $this->alias,
-            'levels' => new LevelResource($this->levels),
-            'created_at' => $this->created_at
-        ];;
+            'programme_group' => $this->programme_group,
+            'levels' => LevelSimpleResource::collection($this->levels),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

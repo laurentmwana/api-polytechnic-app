@@ -11,11 +11,11 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class VerifyEmailController extends Controller
 {
-    public function __invoke(int $userId, string $hash, Request $request): JsonResponse
+    public function __invoke(int $id, string $hash, Request $request): JsonResponse
     {
         $user = $request->user();
 
-        if (($userId !== $user->id) || sha1($user->email) !== $hash) {
+        if (($id !== $user->id) || sha1($user->email) !== $hash) {
             abort(403, "Impossible de vérifier votre adresse e-mail. Veuillez vous reconnecter et réessayer.");
         }
 

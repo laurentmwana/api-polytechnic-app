@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProgrammeGroupEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,7 @@ class ProgrammeFactory extends Factory
         return [
             'name' => $this->faker->name,
             'alias' => $this->faker->name,
+            'programme_group' => fake()->randomElement(ProgrammeGroupEnum::cases())->value,
         ];
     }
 }

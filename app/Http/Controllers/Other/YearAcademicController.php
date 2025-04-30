@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Other;
 
 use App\Models\YearAcademic;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\YearAcademic\YearAcademicResource;
 use App\Http\Resources\YearAcademic\YearAcademicsResource;
@@ -10,10 +11,9 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class YearAcademicController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        $years = YearAcademic::orderByDesc('updated_at')
-            ->paginate();
+        $years = YearAcademic::query()->findSearchAndPaginated($request);
 
         return YearAcademicsResource::collection($years);
     }

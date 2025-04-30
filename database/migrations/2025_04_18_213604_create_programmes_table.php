@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\ProgrammeGroup;
-use App\Enum\ProgrammeGroupEnum;
+use App\Enums\ProgrammeGroupEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

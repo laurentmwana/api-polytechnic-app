@@ -24,6 +24,7 @@ class YearAcademicFactory extends Factory
             'name' => $name,
             'start' => $start,
             'end' => $end,
+            'is_closed' => true
         ];
     }
 }

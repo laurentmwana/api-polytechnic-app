@@ -4,15 +4,22 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Level;
+use App\Models\Course;
 use App\Models\Option;
 use App\Models\Faculty;
-use App\Models\Programme;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Student;
+use App\Models\Professor;
+use App\Models\Programme;
 use App\Models\Department;
 use App\Models\University;
+use App\Models\ActualLevel;
+use App\Models\AcademicFees;
 use App\Models\YearAcademic;
+use App\Models\CourseFollowed;
+use App\Models\LaboratoryFees;
 use Illuminate\Database\Seeder;
-use App\Enum\SpatieUserRoleEnum;
+use App\Enums\SpatieUserRoleEnum;
 use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
@@ -46,9 +53,45 @@ class DatabaseSeeder extends Seeder
 
         Programme::factory(10)->create();
 
-        YearAcademic::factory()->create(['is_closed' => true]);
+        YearAcademic::factory()->create(['is_closed' => false]);
         YearAcademic::factory(3)->create();
 
         Level::factory(10)->create();
+
+        $students = Student::factory(20)->create();
+
+        Professor::factory(30)->create();
+
+        Course::factory(50)->create();
+
+        foreach ($students as $student) {
+
+            $actual = ActualLevel::create([
+                'student_id' => $student->id,
+                'year_academic_id' => YearAcademic::all()->random()->id,
+                'level_id' => Level::all()->random()->id,
+            ]);
+
+            for ($index = 0; $index < 3; $index++) {
+                $actual->update([
+                    'year_academic_id' => YearAcademic::all()->random()->id,
+                    'level_id' => Level::all()->random()->id,
+                ]);
+            }
+
+            CourseFollowed::factory(6)->create([
+                'student_id' => $student->id,
+            ]);
+        }
+
+        foreach (Level::all() as $level) {
+            LaboratoryFees::factory()->create([
+                'level_id' => $level->id,
+            ]);
+
+            AcademicFees::factory()->create([
+                'level_id' => $level->id,
+            ]);
+        }
     }
 }
