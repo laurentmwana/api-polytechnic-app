@@ -19,6 +19,7 @@ use App\Models\YearAcademic;
 use App\Models\CourseFollowed;
 use App\Models\LaboratoryFees;
 use Illuminate\Database\Seeder;
+use App\Enums\GradeProfessorEnum;
 use App\Enums\SpatieUserRoleEnum;
 use Spatie\Permission\Models\Role;
 
@@ -47,20 +48,35 @@ class DatabaseSeeder extends Seeder
         });
 
         University::factory(1)->create();
+
         Faculty::factory(16)->create();
+
         Department::factory(6)->create();
         Option::factory(12)->create();
 
         Programme::factory(10)->create();
 
         YearAcademic::factory()->create(['is_closed' => false]);
+
         YearAcademic::factory(3)->create();
 
         Level::factory(10)->create();
 
         $students = Student::factory(20)->create();
 
-        Professor::factory(30)->create();
+        Professor::factory()->create([
+            'grade' => GradeProfessorEnum::DEAN->value,
+        ]);
+
+        Professor::factory()->create([
+            'grade' => GradeProfessorEnum::VICE_DEAN->value,
+        ]);
+
+        Professor::factory()->create([
+            'grade' => GradeProfessorEnum::RESEARCH_COORDINATOR->value,
+        ]);
+
+        Professor::factory(25)->create();
 
         Course::factory(50)->create();
 

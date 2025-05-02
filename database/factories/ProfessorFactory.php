@@ -25,6 +25,7 @@ class ProfessorFactory extends Factory
             'gender' => fake()->randomElement(GenderEnum::cases())->value,
             'number_phone' => fake()->phoneNumber(),
             'department_id' => Department::all()->random()->id,
+            'image' => "professor/demo.png",
         ];
     }
 }

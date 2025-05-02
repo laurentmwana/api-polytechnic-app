@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\GenderEnum;
+use App\Enums\GradeProfessorEnum;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -21,9 +22,14 @@ return new class extends Migration
                 fn(GenderEnum $enum) => $enum->value,
                 GenderEnum::cases(),
             ));
+            $table->enum('grade', array_map(
+                fn(GradeProfessorEnum $enum) => $enum->value,
+                GradeProfessorEnum::cases(),
+            ))->default(GradeProfessorEnum::FULL_PROFESSOR->value);
+            $table->string('image')->nullable();
             $table->foreignId('department_id')
-            ->constrained()
-            ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }
