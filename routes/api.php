@@ -5,6 +5,7 @@ use App\Http\Controllers\MeController;
 use App\Http\Controllers\Other\LevelController;
 use App\Http\Controllers\Other\OptionController;
 use App\Http\Controllers\Other\FacultyController;
+use App\Http\Controllers\Other\ProfessorController;
 use App\Http\Controllers\Other\ProgrammeController;
 use App\Http\Controllers\Other\DepartmentController;
 use App\Http\Controllers\Other\UniversityController;
@@ -51,12 +52,14 @@ Route::name('^')->group(function () {
     Route::get('/year-academic', [YearAcademicController::class, 'index'])
         ->name('year-academic.index');
 
-        Route::middleware('auth')->group(function () {
-            Route::post('/profile/edit', ProfileEditController::class)
+    Route::get('professor/leader', [ProfessorController::class, 'leader'])
+        ->name('professor.leader');
+
+    Route::middleware('auth')->group(function () {
+        Route::post('/profile/edit', ProfileEditController::class)
             ->name('profile.edit');
 
-            Route::post('/profile/change-password', ProfilePasswordController::class)
+        Route::post('/profile/change-password', ProfilePasswordController::class)
             ->name('profile.password');
-        });
-
+    });
 });

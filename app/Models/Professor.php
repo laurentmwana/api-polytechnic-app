@@ -19,6 +19,8 @@ class Professor extends Model
         'gender',
         'number_phone',
         'department_id',
+        'grade',
+        'image'
     ];
 
     public function newEloquentBuilder($query): ProfessorEloquent
