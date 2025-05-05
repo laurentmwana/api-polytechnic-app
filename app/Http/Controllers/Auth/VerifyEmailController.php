@@ -5,19 +5,14 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Models\OptUserVerified;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class VerifyEmailController extends Controller
 {
-    public function __invoke(int $id, string $hash, Request $request): JsonResponse
+    public function __invoke(string $opt, Request $request): JsonResponse
     {
         $user = $request->user();
-
-        if (($id !== $user->id) || sha1($user->email) !== $hash) {
-            abort(403, "Impossible de vérifier votre adresse e-mail. Veuillez vous reconnecter et réessayer.");
-        }
 
         if ($user->hasVerifiedEmail()) {
             return response()->json([
@@ -25,6 +20,14 @@ class VerifyEmailController extends Controller
                 'message' => 'Votre adresse e-mail a déjà été vérifiée.',
             ]);
         }
+
+        $optUser = OptUserVerified::query()->findOpt($user->id, $opt);
+
+        if (null === $optUser) {
+            abort(403, "otre opt n'est pas valide");
+        }
+
+        $optUser->delete();
 
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));

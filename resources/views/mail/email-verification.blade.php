@@ -3,15 +3,15 @@
 
 Bonjour {{ $name }},
 
-Merci de vous être inscrit sur notre plateforme. Avant de pouvoir accéder à toutes les fonctionnalités, nous avons besoin de vérifier votre adresse e-mail.
+Pour sécuriser votre compte, veuillez utiliser le code ci-dessous afin de confirmer votre adresse e-mail :
 
-Cliquez sur le bouton ci-dessous pour confirmer votre adresse e-mail :
+<x-mail::panel>
+    {{ $optUser->opt }}
+</x-mail::panel>
 
-<x-mail::button :url="$url">
-    Vérifier mon e-mail
-</x-mail::button>
+Ce code expire le {{ \Carbon\Carbon::parse($optUser->expirate)->translatedFormat('d F Y à H:i') }}.
 
-Si vous n'avez pas demandé cette vérification, ignorez simplement ce message.
+Si vous n'avez pas demandé cette vérification, vous pouvez ignorer ce message en toute sécurité.
 
 Merci,<br>
 {{ config('app.name') }}

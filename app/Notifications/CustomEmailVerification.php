@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use App\Models\OptUserVerified;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,7 +15,7 @@ class CustomEmailVerification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(private string $verificationUrl) {}
+    public function __construct(public OptUserVerified $optUser) {}
 
     /**
      * Get the notification's delivery channels.
@@ -31,11 +32,9 @@ class CustomEmailVerification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $emailVerificationUrl = sprintf("/%s/email/verify?url=%s", config('app.frontend_url'), $this->verificationUrl);
-
         return (new MailMessage)->markdown('mail/email-verification', [
             'name' => $notifiable->name,
-            'url' => $emailVerificationUrl
+            'optUser' => $this->optUser,
         ]);
     }
 

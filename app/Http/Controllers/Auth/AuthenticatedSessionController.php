@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => Auth::factory()->getTTL() * 90000
+            'expires_in' => Auth::factory()->getTTL() *  172800
         ]);
     }
 }
