@@ -16,7 +16,6 @@ use App\Http\Controllers\Profile\ProfilePasswordController;
 Route::get('/me', MeController::class)->middleware('auth');
 
 Route::name('^')->group(function () {
-
     Route::get('university/{id}', [UniversityController::class, 'show'])
         ->name('university.show');
     Route::get('university', [UniversityController::class, 'index'])
