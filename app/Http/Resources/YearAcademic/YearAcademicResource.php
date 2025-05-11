@@ -3,7 +3,6 @@
 namespace App\Http\Resources\YearAcademic;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\Level\LevelResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class YearAcademicResource extends JsonResource
@@ -18,9 +17,11 @@ class YearAcademicResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'alias' => $this->alias,
-            'levels' => new LevelResource($this->levels),
-            'created_at' => $this->created_at
+            'start' => $this->start,
+            'end' => $this->end,
+            'is_closed' => $this->is_closed,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

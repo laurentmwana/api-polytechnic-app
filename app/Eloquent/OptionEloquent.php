@@ -21,7 +21,7 @@ class OptionEloquent extends Builder
             $builder,
             $searchValue,
             self::SEARCH_COLUMNS
-        )->paginate();
+        )->paginate(2);
     }
 
     public function findByIdOrThrow(string $id)
@@ -34,7 +34,13 @@ class OptionEloquent extends Builder
         return $this->getQueryRelation()->find($id);
     }
 
-
+    public function findLimit(int $limit)
+    {
+        return $this->getQueryRelation()
+            ->orderByDesc('updated_at')
+            ->limit($limit)
+            ->get();
+    }
     private function getQueryRelation()
     {
         return $this->with(['department', 'levels']);

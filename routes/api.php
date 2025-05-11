@@ -28,6 +28,7 @@ Route::name('^')->group(function () {
 
     Route::get('department/{id}', [DepartmentController::class, 'show'])
         ->name('department.show');
+
     Route::get('department', [DepartmentController::class, 'index'])
         ->name('department.index');
 
@@ -48,6 +49,8 @@ Route::name('^')->group(function () {
 
     Route::get('/year-academic/{id}', [YearAcademicController::class, 'show'])
         ->name('year-academic.show');
+    Route::get('/pending/year-academic', [YearAcademicController::class, 'pending'])
+        ->name('year-academic.pending');
     Route::get('/year-academic', [YearAcademicController::class, 'index'])
         ->name('year-academic.index');
 

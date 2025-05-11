@@ -20,7 +20,7 @@ class DepartmentEloquent extends Builder
             $builder,
             $searchValue,
             self::SEARCH_COLUMNS
-        )->paginate();
+        )->paginate(2);
     }
     public function findLimit(int $limit)
     {

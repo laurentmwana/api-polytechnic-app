@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,15 @@ class AuthenticatedSessionController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         if (! $token = Auth::attempt($request->validated())) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
+    }
+
+    public function refresh(): JsonResponse
+    {
+        if (! $token = Auth::refresh()) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 

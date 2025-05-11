@@ -20,9 +20,14 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', NewPasswordController::class)
         ->name('password.store');
+
+    Route::post('refresh', [AuthenticatedSessionController::class, 'refresh'])
+        ->name('refresh');
 });
 
 Route::middleware('auth')->group(function () {
+
+
 
     Route::post('email/verification-notification', EmailVerificationNotificationController::class)
         ->middleware('throttle:50,1')

@@ -18,7 +18,7 @@ class YearAcademicsResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'faculty' =>  new FacultySimpleResource($this->faculty),
+            'is_closed' => $this->is_closed,
             'created_at' => $this->created_at
         ];
     }

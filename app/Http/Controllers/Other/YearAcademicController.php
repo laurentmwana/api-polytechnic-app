@@ -18,6 +18,13 @@ class YearAcademicController extends Controller
         return YearAcademicsResource::collection($years);
     }
 
+    public function pending(): YearAcademicResource
+    {
+        $year = YearAcademic::query()->pending();
+
+        return new YearAcademicResource($year);
+    }
+
     public function show(int $id): YearAcademicResource
     {
         $year = YearAcademic::findOrFail($id);
