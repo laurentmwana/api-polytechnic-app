@@ -20,7 +20,7 @@ class OptionsResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'alias' => $this->alias,
-            'alias' => $this->alias,
+            'description' => $this->description,
             'levels' => LevelSimpleResource::collection($this->levels),
             'department' =>  new DepartmentSimpleResource($this->department),
             'created_at' => $this->created_at

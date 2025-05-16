@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Other;
 
 use App\Models\Professor;
-use App\Models\Programme;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Professor\ProfessorResource;

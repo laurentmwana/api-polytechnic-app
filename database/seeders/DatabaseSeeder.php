@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(SpatiePermissionSeeder::class);
+        $this->call(DefaultSeeder::class);
 
         User::factory()->create([
             'name' => 'Labeya',
@@ -46,21 +47,6 @@ class DatabaseSeeder extends Seeder
                 Role::findByName(SpatieUserRoleEnum::ROLE_ANONYMOUS->value)
             );
         });
-
-        University::factory(1)->create();
-
-        Faculty::factory(16)->create();
-
-        Department::factory(6)->create();
-        Option::factory(12)->create();
-
-        Programme::factory(10)->create();
-
-        YearAcademic::factory()->create(['is_closed' => false]);
-
-        YearAcademic::factory(3)->create();
-
-        Level::factory(10)->create();
 
         $students = Student::factory(20)->create();
 
@@ -109,5 +95,7 @@ class DatabaseSeeder extends Seeder
                 'level_id' => $level->id,
             ]);
         }
+
+        $this->call(JurySeeder::class);
     }
 }
