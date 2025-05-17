@@ -5,7 +5,6 @@ namespace App\Observers;
 use App\Models\AcademicFees;
 use App\Models\ActualLevel;
 use App\Models\PaidAcademic;
-use App\Models\PaidLaboratory;
 
 class AcademicFeesObserver
 {

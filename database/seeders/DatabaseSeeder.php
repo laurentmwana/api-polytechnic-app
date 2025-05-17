@@ -21,6 +21,8 @@ use App\Models\LaboratoryFees;
 use Illuminate\Database\Seeder;
 use App\Enums\GradeProfessorEnum;
 use App\Enums\SpatieUserRoleEnum;
+use App\Models\Deliberation;
+use App\Models\News;
 use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
@@ -97,5 +99,9 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call(JurySeeder::class);
+
+        Deliberation::factory(20)->create();
+
+        News::factory(4)->create();
     }
 }
