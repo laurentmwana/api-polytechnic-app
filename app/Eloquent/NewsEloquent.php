@@ -27,7 +27,6 @@ class NewsEloquent extends Builder
     {
         return $this->getQueryRelation()->findOrFail($id);
     }
-
     public function findLimit(int $limit)
     {
         return $this->getQueryRelation()

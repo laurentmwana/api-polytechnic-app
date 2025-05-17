@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources\News;
 
-use App\Http\Resources\Level\LevelSecondarySimpleResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Level\LevelSecondarySimpleResource;
+use App\Http\Resources\Deliberation\DeliberationSimpleResource;
 
 class NewsResource extends JsonResource
 {
@@ -19,6 +20,7 @@ class NewsResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'message' => $this->message,
+            'deliberation' => new DeliberationSimpleResource($this->deliberation),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

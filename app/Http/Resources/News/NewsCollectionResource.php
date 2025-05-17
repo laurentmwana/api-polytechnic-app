@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\News;
 
+use App\Http\Resources\Deliberation\DeliberationSimpleResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,7 @@ class NewsCollectionResource   extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'message' => $this->message,
-            'deliberation' => $this->deliberation,
+            'deliberation' => new DeliberationSimpleResource($this->deliberation),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

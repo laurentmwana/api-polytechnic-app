@@ -5,7 +5,9 @@ use App\Http\Controllers\MeController;
 use App\Http\Controllers\Other\NewsController;
 use App\Http\Controllers\Other\LevelController;
 use App\Http\Controllers\Other\OptionController;
+use App\Http\Controllers\Other\ContactController;
 use App\Http\Controllers\Other\FacultyController;
+use App\Http\Controllers\Other\EvaluatorController;
 use App\Http\Controllers\Other\ProfessorController;
 use App\Http\Controllers\Other\ProgrammeController;
 use App\Http\Controllers\Other\DepartmentController;
@@ -65,6 +67,12 @@ Route::name('^')->group(function () {
 
     Route::get('/news', [NewsController::class, 'index'])
         ->name('news.index');
+
+    Route::get('/evaluator', EvaluatorController::class)
+        ->name('eva.index');
+
+    Route::post('/contact/send', ContactController::class)
+        ->name('contact.send');
 
     Route::middleware('auth')->group(function () {
 
