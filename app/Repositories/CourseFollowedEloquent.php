@@ -15,10 +15,7 @@ class CourseFollowedEloquent extends Builder
 
         $searchValue = $request->query('search');
 
-        $builder = $this->getQueryToRelation()
-            ->whereHas('student', function ($query) use ($user) {
-                $query->where('user_id', '=', $user->id);
-            });
+        $builder = $this->getQueryToRelation($user->id);
 
         return SearchDataEloquent::handle(
             $builder,
@@ -27,18 +24,21 @@ class CourseFollowedEloquent extends Builder
         )->paginate(2);
     }
 
-    public function findByIdOrThrow(string $id)
+    public function findByIdOrThrow(int $userId, string $id)
     {
-        return $this->getQueryToRelation()->findOrFail($id);
+        return $this->getQueryToRelation($userId)->findOrFail($id);
     }
 
-    private function getQueryToRelation()
+    private function getQueryToRelation(int $userId)
     {
         return $this->with([
             'course',
             'yearAcademic',
             'course.professor',
             'course.level'
-        ]);
+        ])
+            ->whereHas('student', function ($query) use ($userId) {
+                $query->where('user_id', '=', $userId);
+            });
     }
 }

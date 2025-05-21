@@ -31,8 +31,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
 
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            $url = $request->url();
+
             return response()->json([
-                'message' => $e->getMessage()
+                'message' => "La route {$url} n'existe pas"
             ], 404);
         });
 
@@ -44,6 +46,6 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->render(function (\Illuminate\Auth\AuthenticationException $e, Request $request) {
-            return response()->json(['message' => $e->getMessage()], 401);
+            return response()->json(['message' => "Vous n'êtes pas connecté"], 401);
         });
     })->create();

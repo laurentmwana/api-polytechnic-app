@@ -1,8 +1,9 @@
 <?php
 
 use App\Helpers\SpatieNameMiddleware;
-use App\Http\Controllers\Student\StudentCourseFollowController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Student\StudentCourseFollowController;
+use App\Http\Controllers\Student\StudentPaidLaboratoryController;
 
 Route::prefix('/student')
     ->middleware(['auth', SpatieNameMiddleware::student()])
@@ -10,8 +11,12 @@ Route::prefix('/student')
         Route::get('/course-followed/{id}', [StudentCourseFollowController::class, 'show'])
             ->name('followed.show');
 
-        Route::delete('/course-followed/{id}/destroy', [StudentCourseFollowController::class, 'destroy'])->name('followed.destroy');
-
         Route::get('/course-followed', [StudentCourseFollowController::class, 'index'])
             ->name('followed.index');
+
+        Route::get('/paid-laboratory/{id}', [StudentPaidLaboratoryController::class, 'show'])
+            ->name('paid-labo.show');
+
+        Route::get('/paid-laboratory', [StudentPaidLaboratoryController::class, 'index'])
+            ->name('paid-labo.index');
     });

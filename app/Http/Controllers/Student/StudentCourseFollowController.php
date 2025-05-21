@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use Illuminate\Http\Request;
 use App\Models\CourseFollowed;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Payment\PaidLaboResource;
 use App\Http\Resources\CourseFollow\CourseFollowResource;
 use App\Http\Resources\CourseFollow\CourseFollowsResource;
 
@@ -17,10 +18,12 @@ class StudentCourseFollowController extends Controller
 
         return CourseFollowsResource::collection($courseFollows);
     }
-    public function show(int $id)
+    public function show(Request $request, int $id)
     {
+        $user = $request->user();
+
         $courseFollow = CourseFollowed::query()
-            ->findByIdOrThrow($id);
+            ->findByIdOrThrow($user->id, $id);
 
         return new CourseFollowResource($courseFollow);
     }
