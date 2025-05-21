@@ -12,9 +12,11 @@ use App\Http\Controllers\Other\ProfessorController;
 use App\Http\Controllers\Other\ProgrammeController;
 use App\Http\Controllers\Other\DepartmentController;
 use App\Http\Controllers\Other\UniversityController;
+use App\Http\Controllers\Other\AcademicFeesController;
 use App\Http\Controllers\Other\NotificationController;
 use App\Http\Controllers\Other\YearAcademicController;
 use App\Http\Controllers\Profile\ProfileEditController;
+use App\Http\Controllers\Other\LaboratoryFeesController;
 use App\Http\Controllers\Profile\ProfilePasswordController;
 
 Route::get('/me', MeController::class)->middleware('auth');
@@ -73,6 +75,19 @@ Route::name('^')->group(function () {
 
     Route::post('/contact/send', ContactController::class)
         ->name('contact.send');
+
+
+    Route::get('/academic-fees/{id}', [AcademicFeesController::class, 'show'])
+        ->name('aca.show');
+
+    Route::get('/academic-fees', [AcademicFeesController::class, 'index'])
+        ->name('aca.index');
+
+    Route::get('/laboratory-fees/{id}', [LaboratoryFeesController::class, 'show'])
+        ->name('labo.show');
+
+    Route::get('/laboratory-fees', [LaboratoryFeesController::class, 'index'])
+        ->name('labo.index');
 
     Route::middleware('auth')->group(function () {
 
