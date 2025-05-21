@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Eloquent\OptUserEloquent;
+use App\Repositories\OptUserEloquent;
 use Illuminate\Database\Eloquent\Model;
 
 class OptUserVerified extends Model

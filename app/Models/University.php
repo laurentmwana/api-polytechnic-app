@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Eloquent\UniversityEloquent;
+use App\Repositories\UniversityEloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

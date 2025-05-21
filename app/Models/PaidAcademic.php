@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Eloquent\PaidAcademicEloquent;
+use App\Repositories\PaidAcademicEloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,7 +19,7 @@ class PaidAcademic extends Model
     {
         return $this->belongsTo(AcademicFees::class);
     }
-    
+
 
     public function student(): BelongsTo
     {

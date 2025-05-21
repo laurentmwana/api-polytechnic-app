@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use App\Exceptions\DataEmptyException;
 use Illuminate\Database\Eloquent\Builder;

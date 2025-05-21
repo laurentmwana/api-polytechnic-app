@@ -3,6 +3,7 @@
 use App\Helpers\SpatieNameMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminCourseController;
+use App\Http\Controllers\Admin\AdminOptionController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminProfessorController;
 use App\Http\Controllers\Admin\AdminYearAcademicController;
@@ -28,4 +29,7 @@ Route::prefix('admin')
 
         Route::apiResource('course', AdminCourseController::class)
             ->parameter('course', 'id');
+
+        Route::apiResource('option', AdminOptionController::class)
+            ->parameter('option', 'id');
     });

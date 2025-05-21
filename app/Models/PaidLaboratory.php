@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Eloquent\PaidLaboratoryEloquent;
+use App\Repositories\PaidLaboratoryEloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PaidLaboratory extends Model
@@ -23,5 +23,4 @@ class PaidLaboratory extends Model
     {
         return $this->belongsTo(Student::class);
     }
-
 }

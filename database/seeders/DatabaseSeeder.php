@@ -44,13 +44,13 @@ class DatabaseSeeder extends Seeder
             );
         });
 
-        User::factory()->create()->each(function (User $user) {
-            $user->assignRole(
-                Role::findByName(SpatieUserRoleEnum::ROLE_ANONYMOUS->value)
-            );
-        });
-
-        $students = Student::factory(20)->create();
+        User::factory(100)->create()
+            ->each(function (User $user) {
+                $user->assignRole(
+                    Role::findByName(SpatieUserRoleEnum::ROLE_STUDENT->value)
+                );
+                Student::factory()->create(['user_id' => $user]);
+            });
 
         Professor::factory()->create([
             'grade' => GradeProfessorEnum::DEAN->value,
@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
 
         Course::factory(50)->create();
 
-        foreach ($students as $student) {
+        foreach (Student::all() as $student) {
 
             $actual = ActualLevel::create([
                 'student_id' => $student->id,

@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Http\Request;
-use App\Eloquent\SearchDataEloquent;
+use App\Repositories\SearchDataEloquent;
 use Illuminate\Database\Eloquent\Builder;
 
-class YearAcademicEloquent extends Builder
+class DepartmentEloquent extends Builder
 {
-
-    private const SEARCH_COLUMNS = ['start', 'end', 'is_closed'];
+    private const SEARCH_COLUMNS = ['faculty_id', 'name', 'description'];
 
     public function findSearchAndPaginated(Request $request)
     {
@@ -21,7 +20,14 @@ class YearAcademicEloquent extends Builder
             $builder,
             $searchValue,
             self::SEARCH_COLUMNS
-        )->paginate();
+        )->paginate(2);
+    }
+    public function findLimit(int $limit)
+    {
+        return $this->getQueryRelation()
+            ->orderByDesc('updated_at')
+            ->limit($limit)
+            ->get();
     }
 
     public function findByIdOrThrow(string $id)
@@ -34,14 +40,8 @@ class YearAcademicEloquent extends Builder
         return $this->getQueryRelation()->find($id);
     }
 
-    public function pending()
+    private function getQueryRelation(): DepartmentEloquent
     {
-        return $this->getQueryRelation()
-            ->where('is_closed', '=', false)->first();
-    }
-
-    private function getQueryRelation()
-    {
-        return $this->with(['actualLevels']);
+        return $this->with(['faculty', 'options']);
     }
 }

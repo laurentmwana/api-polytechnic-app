@@ -19,10 +19,8 @@ return new class extends Migration
             $table->foreignId('year_academic_id')
                 ->constrained()
                 ->cascadeOnDelete();
-
             $table->text('description')->nullable();
             $table->dateTime('start_at');
-
             $table->timestamps();
         });
     }

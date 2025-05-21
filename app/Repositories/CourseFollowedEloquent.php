@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,12 +15,7 @@ class CourseFollowedEloquent extends Builder
 
         $searchValue = $request->query('search');
 
-        $builder = $this->with([
-            'course',
-            'yearAcademic',
-            'course.professor',
-            'course.level'
-        ])
+        $builder = $this->getQueryToRelation()
             ->whereHas('student', function ($query) use ($user) {
                 $query->where('user_id', '=', $user->id);
             });
@@ -30,5 +25,20 @@ class CourseFollowedEloquent extends Builder
             $searchValue,
             self::SEARCH_COLUMNS
         )->paginate(2);
+    }
+
+    public function findByIdOrThrow(string $id)
+    {
+        return $this->getQueryToRelation()->findOrFail($id);
+    }
+
+    private function getQueryToRelation()
+    {
+        return $this->with([
+            'course',
+            'yearAcademic',
+            'course.professor',
+            'course.level'
+        ]);
     }
 }

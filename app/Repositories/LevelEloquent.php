@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Http\Request;
-use App\Eloquent\SearchDataEloquent;
+use App\Repositories\SearchDataEloquent;
 use Illuminate\Database\Eloquent\Builder;
 
-class ProgrammeEloquent extends Builder
+class LevelEloquent extends Builder
 {
-
-    private const SEARCH_COLUMNS = ['name', 'alias'];
+    private const SEARCH_COLUMNS = ['programme_id', 'option_id'];
 
     public function findByIdOrThrow(string $id)
     {
@@ -19,6 +18,13 @@ class ProgrammeEloquent extends Builder
     public function findById(string $id)
     {
         return $this->getQueryRelation()->find($id);
+    }
+
+    public function findLimit(int $limit)
+    {
+        return $this->getQueryRelation()->limit($limit)
+            ->orderByDesc('updated_at')
+            ->get();
     }
 
     public function findSearchAndPaginated(Request $request)
@@ -36,6 +42,6 @@ class ProgrammeEloquent extends Builder
 
     private function getQueryRelation()
     {
-        return $this->with(['levels']);
+        return $this->with(['programme', 'option']);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Eloquent\StudentEloquent;
+use App\Repositories\StudentEloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,11 +16,11 @@ class Student extends Model
     protected $fillable = [
         'name',
         'firstname',
-        'lastname',
         'gender',
         'number_phone',
         'registration_token',
         'birth',
+        'user_id'
     ];
 
     public function newEloquentBuilder($query): StudentEloquent

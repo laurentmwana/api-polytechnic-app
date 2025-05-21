@@ -28,15 +28,6 @@ class AuthenticatedSessionController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function destroy(): array
-    {
-        Auth::logout();
-
-        return ['data' => [
-            'message' => "Vous êtes déconnecté (:",
-        ]];
-    }
-
     private function respondWithToken(string $token): JsonResponse
     {
         return response()->json([

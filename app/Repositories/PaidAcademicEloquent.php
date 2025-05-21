@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Builder;
 

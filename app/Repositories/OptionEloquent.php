@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Http\Request;
-use App\Eloquent\SearchDataEloquent;
+use App\Repositories\SearchDataEloquent;
 use Illuminate\Database\Eloquent\Builder;
 
 class OptionEloquent extends Builder

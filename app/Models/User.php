@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Eloquent\UserEloquent;
+use App\Repositories\UserEloquent;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;

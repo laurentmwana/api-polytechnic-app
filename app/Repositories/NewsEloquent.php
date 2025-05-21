@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Http\Request;
-use App\Eloquent\SearchDataEloquent;
+use App\Repositories\SearchDataEloquent;
 use Illuminate\Database\Eloquent\Builder;
 
-class DepartmentEloquent extends Builder
+class NewsEloquent extends Builder
 {
-    private const SEARCH_COLUMNS = ['faculty_id', 'name', 'description'];
+    private const SEARCH_COLUMNS = ['title', 'message', 'department_id', 'start_at'];
 
     public function findSearchAndPaginated(Request $request)
     {
@@ -20,7 +20,12 @@ class DepartmentEloquent extends Builder
             $builder,
             $searchValue,
             self::SEARCH_COLUMNS
-        )->paginate(2);
+        )->paginate();
+    }
+
+    public function findByIdOrThrow(string $id)
+    {
+        return $this->getQueryRelation()->findOrFail($id);
     }
     public function findLimit(int $limit)
     {
@@ -30,18 +35,9 @@ class DepartmentEloquent extends Builder
             ->get();
     }
 
-    public function findByIdOrThrow(string $id)
-    {
-        return $this->getQueryRelation()->findOrFail($id);
-    }
 
-    public function findById(string $id)
+    private function getQueryRelation()
     {
-        return $this->getQueryRelation()->find($id);
-    }
-
-    private function getQueryRelation(): DepartmentEloquent
-    {
-        return $this->with(['faculty', 'options']);
+        return $this->with(['deliberation']);
     }
 }

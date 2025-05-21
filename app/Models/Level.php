@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Eloquent\LevelEloquent;
+use App\Repositories\LevelEloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

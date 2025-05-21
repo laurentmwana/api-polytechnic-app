@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Support\Str;
 use App\Models\OptUserVerified;

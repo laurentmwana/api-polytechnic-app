@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Http\Request;
-use App\Eloquent\SearchDataEloquent;
+use App\Repositories\SearchDataEloquent;
 use Illuminate\Database\Eloquent\Builder;
 
 class CourseEloquent extends Builder
 {
-
     private const SEARCH_COLUMNS = ['name', 'credits', 'level_id', 'professor_id'];
 
     public function findSearchAndPaginated(Request $request)

@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Http\Request;
-use App\Eloquent\SearchDataEloquent;
+use App\Repositories\SearchDataEloquent;
 use Illuminate\Database\Eloquent\Builder;
 
-class ProfessorEloquent extends Builder
+class ProgrammeEloquent extends Builder
 {
 
-    private const SEARCH_COLUMNS = ['name', 'firstname', 'gender', 'number_phone'];
-
+    private const SEARCH_COLUMNS = ['name', 'alias'];
 
     public function findByIdOrThrow(string $id)
     {
@@ -37,6 +36,6 @@ class ProfessorEloquent extends Builder
 
     private function getQueryRelation()
     {
-        return $this->with(['courses', 'department']);
+        return $this->with(['levels']);
     }
 }

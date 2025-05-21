@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Http\Request;
-use App\Eloquent\SearchDataEloquent;
+use App\Repositories\SearchDataEloquent;
 use Illuminate\Database\Eloquent\Builder;
 
-class NewsEloquent extends Builder
+class YearAcademicEloquent extends Builder
 {
-    private const SEARCH_COLUMNS = ['title', 'message', 'department_id', 'start_at'];
+
+    private const SEARCH_COLUMNS = ['start', 'end', 'is_closed'];
 
     public function findSearchAndPaginated(Request $request)
     {
@@ -27,17 +28,20 @@ class NewsEloquent extends Builder
     {
         return $this->getQueryRelation()->findOrFail($id);
     }
-    public function findLimit(int $limit)
+
+    public function findById(string $id)
     {
-        return $this->getQueryRelation()
-            ->orderByDesc('updated_at')
-            ->limit($limit)
-            ->get();
+        return $this->getQueryRelation()->find($id);
     }
 
+    public function pending()
+    {
+        return $this->getQueryRelation()
+            ->where('is_closed', '=', false)->first();
+    }
 
     private function getQueryRelation()
     {
-        return $this->with(['deliberation']);
+        return $this->with(['actualLevels']);
     }
 }
