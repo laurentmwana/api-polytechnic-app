@@ -3,6 +3,7 @@
 use App\Helpers\SpatieNameMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Student\StudentCourseFollowController;
+use App\Http\Controllers\Student\StudentPaidAcademicController;
 use App\Http\Controllers\Student\StudentPaidLaboratoryController;
 
 Route::prefix('/student')
@@ -19,4 +20,10 @@ Route::prefix('/student')
 
         Route::get('/paid-laboratory', [StudentPaidLaboratoryController::class, 'index'])
             ->name('paid-labo.index');
+
+        Route::get('/paid-academic/{id}', [StudentPaidAcademicController::class, 'show'])
+            ->name('paid-aca.show');
+
+        Route::get('/paid-academic', [StudentPaidAcademicController::class, 'index'])
+            ->name('paid-aca.index');
     });
