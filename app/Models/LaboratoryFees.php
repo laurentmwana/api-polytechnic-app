@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Repositories\LaboratoryFeesEloquent;
+use App\Eloquent\LaboratoryFeesEloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +22,7 @@ class LaboratoryFees extends Model
         return $this->belongsTo(YearAcademic::class);
     }
 
-     public function level(): BelongsTo
+    public function level(): BelongsTo
     {
         return $this->belongsTo(Level::class);
     }

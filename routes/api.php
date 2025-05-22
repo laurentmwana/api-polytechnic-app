@@ -2,17 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MeController;
-use App\Http\Controllers\Other\NewsController;
 use App\Http\Controllers\Other\LevelController;
 use App\Http\Controllers\Other\OptionController;
 use App\Http\Controllers\Other\ContactController;
-use App\Http\Controllers\Other\FacultyController;
 use App\Http\Controllers\Other\EvaluatorController;
 use App\Http\Controllers\Other\ProfessorController;
 use App\Http\Controllers\Other\ProgrammeController;
 use App\Http\Controllers\Other\DepartmentController;
-use App\Http\Controllers\Other\UniversityController;
 use App\Http\Controllers\Other\AcademicFeesController;
+use App\Http\Controllers\Other\DeliberationController;
 use App\Http\Controllers\Other\NotificationController;
 use App\Http\Controllers\Other\YearAcademicController;
 use App\Http\Controllers\Profile\ProfileEditController;
@@ -22,15 +20,18 @@ use App\Http\Controllers\Profile\ProfilePasswordController;
 Route::get('/me', MeController::class)->middleware('auth');
 
 Route::name('^')->group(function () {
-    Route::get('university/{id}', [UniversityController::class, 'show'])
-        ->name('university.show');
-    Route::get('university', [UniversityController::class, 'index'])
-        ->name('university.index');
 
-    Route::get('faculty/{id}', [FacultyController::class, 'show'])
-        ->name('faculty.show');
-    Route::get('faculty', [FacultyController::class, 'index'])
-        ->name('faculty.index');
+    Route::get('deliberation/{id}', [DeliberationController::class, 'show'])
+        ->name('deliberation.show');
+
+    Route::get('deliberation', [DeliberationController::class, 'index'])
+        ->name('deliberation.index');
+
+    Route::get('professor/{id}', [ProfessorController::class, 'show'])
+        ->name('professor.show');
+
+    Route::get('professor', [ProfessorController::class, 'index'])
+        ->name('professor.index');
 
     Route::get('department/{id}', [DepartmentController::class, 'show'])
         ->name('department.show');
@@ -64,11 +65,6 @@ Route::name('^')->group(function () {
     Route::get('professor/leader', [ProfessorController::class, 'leader'])
         ->name('professor.leader');
 
-    Route::get('/news/{id}', [NewsController::class, 'show'])
-        ->name('news.show');
-
-    Route::get('/news', [NewsController::class, 'index'])
-        ->name('news.index');
 
     Route::get('/evaluator', EvaluatorController::class)
         ->name('eva.index');

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Repositories\PaidAcademicEloquent;
+use App\Eloquent\PaidAcademicEloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Professor;
 
 use Illuminate\Http\Request;
-use App\Helpers\ImageUrlDomain;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Course\CourseSimpleLevelResource;
 use App\Http\Resources\Department\DepartmentSimpleResource;
@@ -23,7 +22,6 @@ class ProfessorResource extends JsonResource
             'firstname' => $this->firstname,
             'gender' => $this->gender,
             'number_phone' => $this->number_phone,
-            'image' => ImageUrlDomain::parse($this->image),
             'department' =>  new DepartmentSimpleResource($this->department),
             'courses' => CourseSimpleLevelResource::collection($this->courses),
             'created_at' => $this->created_at,

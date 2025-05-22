@@ -22,6 +22,7 @@ class DeliberationFactory extends Factory
             'year_academic_id' => YearAcademic::all()->random()->id,
             'level_id' => Level::all()->random()->id,
             'start_at' => now()->addDays(2),
+            'description' => $this->faker->sentence()
         ];
     }
 }

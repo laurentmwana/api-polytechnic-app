@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Eloquent\DeliberationEloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -16,6 +17,11 @@ class Deliberation extends Model
         'year_academic_id',
         'start_at',
     ];
+
+    public function newEloquentBuilder($query): DeliberationEloquent
+    {
+        return new DeliberationEloquent($query);
+    }
 
     public function level(): BelongsTo
     {

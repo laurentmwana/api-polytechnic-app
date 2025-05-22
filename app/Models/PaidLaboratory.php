@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Repositories\PaidLaboratoryEloquent;
+use App\Eloquent\PaidLaboratoryEloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PaidLaboratory extends Model

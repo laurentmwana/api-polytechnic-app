@@ -22,11 +22,6 @@ return new class extends Migration
                 fn(GenderEnum $enum) => $enum->value,
                 GenderEnum::cases(),
             ));
-            $table->enum('grade', array_map(
-                fn(GradeProfessorEnum $enum) => $enum->value,
-                GradeProfessorEnum::cases(),
-            ))->default(GradeProfessorEnum::FULL_PROFESSOR->value);
-            $table->string('image')->nullable();
             $table->foreignId('department_id')
                 ->constrained()
                 ->cascadeOnDelete();

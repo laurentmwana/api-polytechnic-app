@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Repositories\AcademicFeesEloquent;
+use App\Eloquent\AcademicFeesEloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

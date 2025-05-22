@@ -4,6 +4,7 @@ namespace App\Http\Resources\Professor;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Course\CourseSimpleResource;
 use App\Http\Resources\Faculty\FacultySimpleResource;
 use App\Http\Resources\Department\DepartmentSimpleResource;
 
@@ -22,7 +23,7 @@ class ProfessorsResource extends JsonResource
             'firstname' => $this->firstname,
             'gender' => $this->gender,
             'department' =>  new DepartmentSimpleResource($this->department),
-            'courses' => $this->courses->count('id'),
+            'courses' => CourseSimpleResource::collection($this->courses),
             'created_at' => $this->created_at
         ];
     }

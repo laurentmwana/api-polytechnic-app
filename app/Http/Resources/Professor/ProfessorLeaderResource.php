@@ -21,8 +21,6 @@ class ProfessorLeaderResource extends JsonResource
             'name' => $this->name,
             'firstname' => $this->firstname,
             'gender' => $this->gender,
-            'image' => ImageUrlDomain::parse($this->image),
-            'grade' => $this->grade,
             'birth' => $this->birth,
             'department' => new DepartmentSimpleResource($this->department),
         ];

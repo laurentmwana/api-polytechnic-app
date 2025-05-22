@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Repositories\DepartmentEloquent;
+use App\Eloquent\DepartmentEloquent;
 use App\Models\Professor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
