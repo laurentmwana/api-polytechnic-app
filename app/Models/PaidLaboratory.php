@@ -23,5 +23,4 @@ class PaidLaboratory extends Model
     {
         return $this->belongsTo(Student::class);
     }
-
 }

@@ -34,7 +34,13 @@ class OptionEloquent extends Builder
         return $this->getQueryRelation()->find($id);
     }
 
-
+    public function findLimit(int $limit)
+    {
+        return $this->getQueryRelation()
+            ->orderByDesc('updated_at')
+            ->limit($limit)
+            ->get();
+    }
     private function getQueryRelation()
     {
         return $this->with(['department', 'levels']);

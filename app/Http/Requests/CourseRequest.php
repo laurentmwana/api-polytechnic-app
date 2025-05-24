@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\CourseInLevelRule;
+use App\Enums\GenderEnum;
+use App\Rules\NumberPhoneRule;
+use Illuminate\Validation\Rules\Enum;
 
 class CourseRequest extends BaseFormRequest
 {
@@ -21,33 +23,33 @@ class CourseRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        $levelId = $this->input('level_id');
-
-        $id = $this->input('id');
-
         return [
             'name' => [
                 'required',
                 'string',
                 'between:2,255',
-                (new CourseInLevelRule($levelId, $id))
             ],
 
-            'credits' => [
+            'firstname' => [
                 'required',
-                'numeric',
-                'min:1',
-                'max:30'
+                'string',
+                'between:2,255',
             ],
 
-            'level_id' => [
+            'gender' => [
                 'required',
-                'exists:levels,id',
+                'string',
+                (new Enum(GenderEnum::class))
             ],
 
-            'professor_id' => [
+            'number_phone' => [
                 'required',
-                'exists:professors,id',
+                (new NumberPhoneRule())
+            ],
+
+            'department_id' => [
+                'required',
+                'exists:departments,id',
             ],
         ];
     }

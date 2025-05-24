@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Option;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -10,6 +9,7 @@ use App\Http\Requests\OptionRequest;
 use App\Http\Resources\Option\OptionResource;
 use App\Http\Resources\Option\OptionsResource;
 use App\Http\Resources\Option\OptionSimpleResource;
+use App\Models\Option;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AdminOptionController extends Controller
@@ -21,6 +21,13 @@ class AdminOptionController extends Controller
         return OptionsResource::collection($options);
     }
 
+    public function show(int $id): OptionResource
+    {
+        $option = Option::query()->findByIdOrThrow($id);
+
+        return new OptionResource($option);
+    }
+
     public function store(OptionRequest $request): OptionSimpleResource
     {
         $option = DB::transaction(function () use ($request) {
@@ -29,17 +36,9 @@ class AdminOptionController extends Controller
 
         return new OptionSimpleResource($option);
     }
-
-    public function show(int $id): OptionResource
-    {
-        $option = Option::query()->findByIdOrThrow($id);
-
-        return new OptionResource($option);
-    }
-
     public function update(OptionRequest $request, int $id): OptionSimpleResource
     {
-        $option = Option::findOrFail($id, ['name', 'id']);
+        $option = Option::findOrFail($id);
 
         DB::transaction(function () use ($request, $option) {
             $option->update($request->validated());

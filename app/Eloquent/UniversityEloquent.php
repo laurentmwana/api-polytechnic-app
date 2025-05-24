@@ -4,7 +4,8 @@ namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class UniversityEloquent extends Builder {
+class UniversityEloquent extends Builder
+{
     public function findByIdOrThrow(string $id)
     {
         return $this->getQueryRelation()->findOrFail($id);

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CourseEloquent extends Builder
 {
-
     private const SEARCH_COLUMNS = ['name', 'credits', 'level_id', 'professor_id'];
 
     public function findSearchAndPaginated(Request $request)

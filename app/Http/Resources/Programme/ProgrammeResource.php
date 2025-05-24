@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Programme;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\Level\LevelResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Level\LevelSimpleResource;
 

@@ -21,4 +21,9 @@ class LaboratoryFees extends Model
     {
         return $this->belongsTo(YearAcademic::class);
     }
+
+    public function level(): BelongsTo
+    {
+        return $this->belongsTo(Level::class);
+    }
 }

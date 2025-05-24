@@ -19,7 +19,7 @@ class PaidAcademic extends Model
     {
         return $this->belongsTo(AcademicFees::class);
     }
-    
+
 
     public function student(): BelongsTo
     {

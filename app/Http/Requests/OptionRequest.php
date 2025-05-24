@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\GenderEnum;
+use App\Rules\NumberPhoneRule;
+use Illuminate\Validation\Rules\Enum;
 
 class OptionRequest extends BaseFormRequest
 {
@@ -20,8 +23,6 @@ class OptionRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        $id = $this->input('id');
-
         return [
             'name' => [
                 'required',
@@ -38,12 +39,12 @@ class OptionRequest extends BaseFormRequest
             'description' => [
                 'nullable',
                 'string',
-                'between:2,50000',
+                'between:2,5000',
             ],
 
             'department_id' => [
                 'required',
-                'exists:departments,id'
+                'exists:departments,id',
             ],
         ];
     }

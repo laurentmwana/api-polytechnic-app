@@ -20,7 +20,7 @@ class ProgrammeController extends Controller
 
     public function show(int $id): ProgrammeResource
     {
-        $programme = Programme::query()->findByIdThrow($id);
+        $programme = Programme::query()->findByIdOrThrow($id);
 
         return new ProgrammeResource($programme);
     }

@@ -20,8 +20,7 @@ class UserMeResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'isEmailVerified' => $this->hasVerifiedEmail(),
-            'roles' => UtilResource::collection($this->roles),
-            'permissions' => UtilResource::collection($this->permissions),
+            'role' => $this->role
         ];
     }
 }

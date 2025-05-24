@@ -23,6 +23,11 @@ return new class extends Migration
                 fn(GenderEnum $enum) => $enum->value,
                 GenderEnum::cases(),
             ));
+
+            $table->foreignId('user_id')
+                ->unique()
+                ->constrained()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

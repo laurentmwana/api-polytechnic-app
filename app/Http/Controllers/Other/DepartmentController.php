@@ -13,9 +13,9 @@ class DepartmentController extends Controller
 {
     public function index(Request $request): AnonymousResourceCollection
     {
-        $limit = $request->query->get('limit');
+        $limit = $request->query->getInt('limit');
 
-        $departments = null !== $limit && !empty($limit) && is_integer($limit)
+        $departments = null !== $limit && $limit > 0
             ? Department::query()->findLimit($limit)
             : Department::query()->findSearchAndPaginated($request);
 
@@ -24,7 +24,7 @@ class DepartmentController extends Controller
 
     public function show(int $id): DepartmentResource
     {
-        $department = Department::query()->findByIdThrow($id);
+        $department = Department::query()->findByIdOrThrow($id);
 
         return new DepartmentResource($department);
     }

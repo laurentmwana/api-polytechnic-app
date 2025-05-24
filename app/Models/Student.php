@@ -16,11 +16,11 @@ class Student extends Model
     protected $fillable = [
         'name',
         'firstname',
-        'lastname',
         'gender',
         'number_phone',
         'registration_token',
         'birth',
+        'user_id'
     ];
 
     public function newEloquentBuilder($query): StudentEloquent

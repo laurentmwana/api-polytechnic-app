@@ -12,7 +12,7 @@ class ProfessorEloquent extends Builder
     private const SEARCH_COLUMNS = ['name', 'firstname', 'gender', 'number_phone'];
 
 
-    public function findByIdOrThrow(string $id)
+    public function findByIdThrow(string $id)
     {
         return $this->getQueryRelation()->findOrFail($id);
     }

@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Enums\GenderEnum;
 use App\Models\Department;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,7 +24,6 @@ class ProfessorFactory extends Factory
             'gender' => fake()->randomElement(GenderEnum::cases())->value,
             'number_phone' => fake()->phoneNumber(),
             'department_id' => Department::all()->random()->id,
-            'image' => "professor/demo.png",
         ];
     }
 }

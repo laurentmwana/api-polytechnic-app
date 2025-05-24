@@ -40,7 +40,6 @@ class DepartmentEloquent extends Builder
         return $this->getQueryRelation()->find($id);
     }
 
-
     private function getQueryRelation(): DepartmentEloquent
     {
         return $this->with(['faculty', 'options']);

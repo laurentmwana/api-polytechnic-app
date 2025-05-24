@@ -15,10 +15,10 @@ class OptionController extends Controller
     {
         $limit = $request->query->get('limit');
 
-        $options = null !== $limit && !empty($limit) && is_integer($limit)
+        $options = null !== $limit && !empty($limit)
             ? Option::query()->findLimit($limit)
             : Option::query()->findSearchAndPaginated($request);
-            
+
         return OptionsResource::collection($options);
     }
 

@@ -124,4 +124,5 @@ return [
     ],
 
     'frontend_url' => env('FRONTEND_APP_URL', 'http://localhost:3000'),
+    'mail_from_contact' => env('MAIL_FROM_ADDRESS_CONTACT', 'demo@gmail.com')
 ];

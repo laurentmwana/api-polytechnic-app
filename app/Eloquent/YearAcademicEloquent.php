@@ -34,9 +34,14 @@ class YearAcademicEloquent extends Builder
         return $this->getQueryRelation()->find($id);
     }
 
+    public function pending()
+    {
+        return $this->getQueryRelation()
+            ->where('is_closed', '=', false)->first();
+    }
 
     private function getQueryRelation()
     {
-        return $this->with(['department', 'levels']);
+        return $this->with(['actualLevels']);
     }
 }
