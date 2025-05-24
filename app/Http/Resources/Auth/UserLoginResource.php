@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Option;
+namespace App\Http\Resources\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OptionSimpleResource extends JsonResource
+class UserLoginResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,10 @@ class OptionSimpleResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'alias' => $this->alias,
+            'email' => $this->email,
+            'isEmailVerified' => $this->hasVerifiedEmail(),
+            'role' => $this->role,
+            'accessToken' => $this->token,
         ];
     }
 }

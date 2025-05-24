@@ -23,6 +23,7 @@ class DeliberationResource extends JsonResource
             'start_at' => $this->start_at,
             'description' => $this->description,
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
